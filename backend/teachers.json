@@ -1,0 +1,202 @@
+[
+  {
+    "name": "Lea",
+    "email": "lea@example.com",
+    "professional": true,
+    "language": "German",
+    "image": "https://randomuser.me/api/portraits/women/28.jpg",
+    "description": "Dedicated native German teacher certified by the Goethe Institut specialized in tailor-made learning",
+    "about": "I am originally from a small village in Austria and have always been fascinated by languages and cultures. I came across my calling as a teacher by coincidence when I was volunteering to teach German to refugees in 2017. Since then, I have gained extensive experience as a German teacher at language schools and in private lessons.",
+    "price": 9
+  },
+  {
+    "name": "Maria",
+    "email": "maria@example.com",
+    "professional": true,
+    "language": "Spanish",
+    "image": "https://randomuser.me/api/portraits/women/2.jpg",
+    "description": "Certified Spanish teacher from Spain offering interactive and fun lessons",
+    "about": "As a native Spanish speaker, I am enthusiastic about sharing my language and culture. I use interactive activities and games to make learning Spanish enjoyable and effective.",
+    "price": 10
+  },
+  {
+    "name": "Sophie",
+    "email": "sophie@example.com",
+    "professional": true,
+    "language": "French",
+    "image": "https://randomuser.me/api/portraits/women/3.jpg",
+    "description": "French teacher with a focus on conversational skills and French cuisine",
+    "about": "I believe that learning French should be an immersive experience. I emphasize conversational skills and introduce students to the delights of French cuisine and culture.",
+    "price": 11.5
+  },
+  {
+    "name": "Luis",
+    "email": "luis@example.com",
+    "professional": true,
+    "language": "Spanish",
+    "image": "https://randomuser.me/api/portraits/men/1.jpg",
+    "description": "Experienced Spanish teacher with a focus on grammar and communication",
+    "about": "With several years of teaching experience, I prioritize teaching Spanish grammar and helping students communicate effectively in everyday situations.",
+    "price": 10.5
+  },
+  {
+    "name": "Hannah",
+    "email": "hannah@example.com",
+    "professional": false,
+    "language": "French",
+    "image": "https://randomuser.me/api/portraits/women/4.jpg",
+    "description": "Experienced French teacher with a passion for French literature",
+    "about": "I am passionate about French literature and culture, and I incorporate literary works into my lessons to deepen language understanding and appreciation.",
+    "price": 12
+  },
+  {
+    "name": "Max",
+    "email": "max@example.com",
+    "professional": true,
+    "language": "German",
+    "image": "https://randomuser.me/api/portraits/men/2.jpg",
+    "description": "Experienced German teacher focused on exam preparation",
+    "about": "I specialize in preparing students for German language exams, offering comprehensive lessons that cover all aspects of the exam and boost confidence.",
+    "price": 10
+  },
+  {
+    "name": "Isabella",
+    "email": "isabella@example.com",
+    "professional": true,
+    "language": "Spanish",
+    "image": "https://randomuser.me/api/portraits/women/5.jpg",
+    "description": "Spanish teacher with a focus on Latin American Spanish and culture",
+    "about": "As a native speaker from Argentina, I teach Latin American Spanish and provide insights into the region's diverse cultures and traditions.",
+    "price": 11
+  },
+  {
+    "name": "Luc",
+    "email": "luc@example.com",
+    "professional": false,
+    "language": "French",
+    "image": "https://randomuser.me/api/portraits/men/3.jpg",
+    "description": "Experienced French teacher with a focus on business language",
+    "about": "Having worked in the business sector, I offer French lessons tailored for professionals, covering business vocabulary, etiquette, and communication.",
+    "price": 12.5
+  },
+  {
+    "name": "Hannah",
+    "email": "hannah2@example.com",
+    "professional": false,
+    "language": "German",
+    "image": "https://randomuser.me/api/portraits/women/6.jpg",
+    "description": "German teacher with a focus on conversation and cultural immersion",
+    "about": "I believe in learning German through conversation and cultural immersion. My lessons include discussions on various topics to improve speaking skills.",
+    "price": 9.5
+  },
+  {
+    "name": "Carlos",
+    "email": "carlos@example.com",
+    "professional": true,
+    "language": "Spanish",
+    "image": "https://randomuser.me/api/portraits/men/4.jpg",
+    "description": "Experienced Spanish teacher with a focus on Hispanic literature",
+    "about": "I have a background in Hispanic literature and love sharing literary gems with my students to deepen their understanding of Spanish language and culture.",
+    "price": 12
+  },
+  {
+    "name": "Amelie",
+    "email": "amelie@example.com",
+    "professional": true,
+    "language": "French",
+    "image": "https://randomuser.me/api/portraits/women/7.jpg",
+    "description": "French teacher with a focus on pronunciation and phonetics",
+    "about": "I place a strong emphasis on correct pronunciation and phonetics in French, which helps students develop a natural and authentic accent.",
+    "price": 10.5
+  },
+  {
+    "name": "Paul",
+    "email": "paul@example.com",
+    "professional": true,
+    "language": "German",
+    "image": "https://randomuser.me/api/portraits/men/5.jpg",
+    "description": "Experienced German teacher offering lessons for beginners and intermediate learners",
+    "about": "I have been teaching German to students of all levels for more than 7 years. My approach involves interactive exercises and real-life scenarios.",
+    "price": 11
+  },
+  {
+    "name": "Elena",
+    "email": "elena@example.com",
+    "professional": true,
+    "language": "Spanish",
+    "image": "https://randomuser.me/api/portraits/women/8.jpg",
+    "description": "Spanish teacher with a focus on immersive language learning",
+    "about": "I believe in immersive language learning, and my lessons include cultural activities and conversations to enhance language proficiency.",
+    "price": 10
+  },
+  {
+    "name": "Francois",
+    "email": "francois@example.com",
+    "professional": true,
+    "language": "French",
+    "image": "https://randomuser.me/api/portraits/men/6.jpg",
+    "description": "Experienced French teacher with a passion for teaching all ages",
+    "about": "I have been teaching French to students of all ages, from children to adults. My lessons are engaging, interactive, and tailored to individual needs.",
+    "price": 11.5
+  },
+  {
+    "name": "Anna",
+    "email": "anna@example.com",
+    "professional": false,
+    "language": "German",
+    "image": "https://randomuser.me/api/portraits/women/9.jpg",
+    "description": "Experienced German teacher offering lessons for advanced learners",
+    "about": "For advanced learners, I focus on complex grammar structures, advanced vocabulary, and discussions on various topics to further language proficiency.",
+    "price": 12.5
+  },
+  {
+    "name": "Antonio",
+    "email": "antonio@example.com",
+    "professional": false,
+    "language": "Spanish",
+    "image": "https://randomuser.me/api/portraits/men/7.jpg",
+    "description": "Spanish teacher with a focus on conversational fluency",
+    "about": "I aim to develop conversational fluency in Spanish through interactive and enjoyable lessons that encourage students to speak from day one.",
+    "price": 11
+  },
+  {
+    "name": "Camille",
+    "email": "camille@example.com",
+    "professional": true,
+    "language": "French",
+    "image": "https://randomuser.me/api/portraits/women/10.jpg",
+    "description": "Experienced French teacher with a focus on DELF/DALF exam preparation",
+    "about": "I specialize in preparing students for the DELF/DALF exams, providing comprehensive lessons that cover all aspects of the exam.",
+    "price": 13
+  },
+  {
+    "name": "Julia",
+    "email": "julia@example.com",
+    "professional": true,
+    "language": "German",
+    "image": "https://randomuser.me/api/portraits/women/11.jpg",
+    "description": "German teacher with a focus on grammar and writing skills",
+    "about": "I emphasize German grammar and writing skills in my lessons, as I believe they form the foundation for effective communication.",
+    "price": 10.5
+  },
+  {
+    "name": "Isabel",
+    "email": "isabel@example.com",
+    "professional": false,
+    "language": "Spanish",
+    "image": "https://randomuser.me/api/portraits/women/12.jpg",
+    "description": "Experienced Spanish teacher with a focus on Latin American culture",
+    "about": "With a passion for Latin American culture, I incorporate cultural insights into my lessons to enhance language learning and understanding.",
+    "price": 11.5
+  },
+  {
+    "name": "Thierry",
+    "email": "thierry@example.com",
+    "professional": false,
+    "language": "French",
+    "image": "https://randomuser.me/api/portraits/men/8.jpg",
+    "description": "French teacher with a focus on business language and communication",
+    "about": "With a background in international business, I offer French lessons that cater to professionals, covering business vocabulary and communication skills.",
+    "price": 12
+  }
+]
