@@ -43,7 +43,7 @@
       <h1 class="text-center text-4xl font-bold">Oops, no teachers found 🥲</h1>
     </div>
 
-    <div class="mt-12 grid grid-cols-3 gap-12">
+    <div class="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-3">
       <div v-for="teacher in filteredTeachers" :key="teacher._id">
         <router-link
           :to="{

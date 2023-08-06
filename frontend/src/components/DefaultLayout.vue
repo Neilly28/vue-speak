@@ -1,5 +1,5 @@
 <template>
-  <div class="max-w-5xl m-auto mb-24 font-secondary">
+  <div class="m-auto mb-24 max-w-5xl font-secondary">
     <Navbar />
     <router-view />
   </div>
