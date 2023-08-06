@@ -3,6 +3,7 @@ const app = express();
 const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
+const authRoute = require("./routes/auth");
 const teacherRoute = require("./routes/teacher");
 
 // configs
@@ -10,15 +11,16 @@ dotenv.config();
 app.use(cors());
 app.use(express.json());
 
+// routes
+app.use("/api/auth", authRoute);
+app.use("/api/teachers", teacherRoute);
+
 // message for deployment
 app.get("/", async (req, res) => {
   res.status(200).json({
     message: "Hello from SpeakVue backend!",
   });
 });
-
-// routes
-app.use("/api/teachers", teacherRoute);
 
 // connect to db
 mongoose

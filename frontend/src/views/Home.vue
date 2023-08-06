@@ -57,10 +57,10 @@
             <img class="rounded-full w-24" :src="teacher.image" alt="" />
             <div class="text-left flex flex-col items-start justify-center">
               <h2 class="text-2xl font-bold">{{ teacher.name }}</h2>
-              <h2 class="text-sm text-slate-400">
+              <h2 class="text-xs text-slate-400">
                 {{
                   teacher.professional
-                    ? "Professional Teacher"
+                    ? "Professional Teacher ✅"
                     : "Community Tutor"
                 }}
               </h2>
