@@ -1,10 +1,10 @@
 <template>
   <div>
     <div class="text-center">
-      <h1 class="text-5xl font-bold mt-12 mb-8">
+      <h1 class="mb-8 mt-12 text-5xl font-bold">
         Start learning with one of our top teachers!
       </h1>
-      <p class="text-lg mb-24">
+      <p class="mb-24 text-lg">
         There isn't a single way to teach a language. Book a regular lesson or a
         trial lessons to get an introduction to a teacher's style. We have
         teachers who specialize in teaching the foundations of German all the
@@ -15,13 +15,13 @@
     <!-- SEARCH FILTERS -->
     <div class="flex items-center justify-center gap-4">
       <input
-        class="bg-slate-100 px-4 py-2 rounded-full"
+        class="rounded-full bg-slate-100 px-4 py-2"
         type="text"
         placeholder="🔎 Find your teacher..."
         v-model="searchTerm"
       />
       <select
-        class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer"
+        class="cursor-pointer rounded-full bg-slate-100 px-4 py-2"
         v-model="selectedLanguage"
       >
         <option value="">Choose Language</option>
@@ -31,7 +31,7 @@
       </select>
 
       <select
-        class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer"
+        class="cursor-pointer rounded-full bg-slate-100 px-4 py-2"
         v-model="selectedProfession"
       >
         <option value="">Choose Level</option>
@@ -40,10 +40,10 @@
       </select>
     </div>
     <div v-if="filteredTeachers.length === 0" class="mt-12">
-      <h1 class="text-4xl text-center font-bold">Oops, no teachers found 🥲</h1>
+      <h1 class="text-center text-4xl font-bold">Oops, no teachers found 🥲</h1>
     </div>
 
-    <div class="grid grid-cols-3 gap-12 mt-12">
+    <div class="mt-12 grid grid-cols-3 gap-12">
       <div v-for="teacher in filteredTeachers" :key="teacher._id">
         <router-link
           :to="{
@@ -51,11 +51,11 @@
             params: { id: teacher._id },
             props: { teacher },
           }"
-          class="group h-80 cursor-pointer flex flex-col items-start justify-evenly gap-4 shadow-md p-6 rounded-3xl bg-white"
+          class="group flex h-80 cursor-pointer flex-col items-start justify-evenly gap-4 rounded-3xl bg-white p-6 shadow-md"
         >
           <div class="flex gap-4">
-            <img class="rounded-full w-24" :src="teacher.image" alt="" />
-            <div class="text-left flex flex-col items-start justify-center">
+            <img class="w-24 rounded-full" :src="teacher.image" alt="" />
+            <div class="flex flex-col items-start justify-center text-left">
               <h2 class="text-2xl font-bold">{{ teacher.name }}</h2>
               <h2 class="text-xs text-slate-400">
                 {{
@@ -65,25 +65,25 @@
                 }}
               </h2>
               <span
-                class="mt-2 border-transparent px-2 py-1 rounded-3xl text-xs font-semibold text-cyan-800 bg-cyan-200"
+                class="mt-2 rounded-3xl border-transparent bg-cyan-200 px-2 py-1 text-xs font-semibold text-cyan-800"
                 >{{ teacher.language }}</span
               >
             </div>
           </div>
 
           <div>
-            <p class="text-sm text-left">{{ teacher.description }}</p>
+            <p class="text-left text-sm">{{ teacher.description }}</p>
           </div>
           <div class="flex items-center justify-evenly gap-4">
             <div>
-              <p class="text-sm text-left text-slate-400">Trial from</p>
-              <h3 class="font-bold text-xl text-left">
+              <p class="text-left text-sm text-slate-400">Trial from</p>
+              <h3 class="text-left text-xl font-bold">
                 EUR {{ teacher.price.toFixed(2) }}
               </h3>
             </div>
 
             <button
-              class="bg-red-500 text-white font-bold px-4 py-2 rounded-full cursor-pointer opacity-0 group-hover:opacity-100 ease-in-out duration-300"
+              class="cursor-pointer rounded-full bg-red-500 px-4 py-2 font-bold text-white opacity-0 duration-300 ease-in-out group-hover:opacity-100"
             >
               Book a class
             </button>

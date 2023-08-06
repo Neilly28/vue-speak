@@ -5,7 +5,7 @@
       <div>
         <label for="">email</label>
         <input
-          class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer"
+          class="cursor-pointer rounded-full bg-slate-100 px-4 py-2"
           type="email"
           name="email"
           v-model="email"
@@ -15,7 +15,7 @@
       <div>
         <label for="">password</label>
         <input
-          class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer"
+          class="cursor-pointer rounded-full bg-slate-100 px-4 py-2"
           type="password"
           name="password"
           v-model="password"
