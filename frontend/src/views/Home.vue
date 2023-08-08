@@ -96,18 +96,21 @@
 
 <script setup>
 import { onMounted, ref, computed } from "vue";
-import { useStore } from "vuex";
-import axios from "axios";
 
 const teachers = ref([]);
 const selectedLanguage = ref("");
 const selectedProfession = ref("");
 const searchTerm = ref("");
-const store = useStore();
 
-// user auth
-const user = computed(() => store.state.user);
-console.log(user);
+// import store
+import { useTeacherStore } from "../store/teachers";
+const teacherStore = useTeacherStore();
+
+// fetch teachers when component is mounted
+onMounted(async () => {
+  await teacherStore.fetchTeachers();
+  teachers.value = teacherStore.teachers;
+});
 
 // language and professional filter
 const filteredTeachers = computed(() => {
@@ -137,16 +140,6 @@ const filteredTeachers = computed(() => {
 
       return languageMatch && professionMatch && searchMatch;
     });
-  }
-});
-
-onMounted(async () => {
-  try {
-    // fetch teachers
-    const response = await axios.get("http://localhost:5000/api/teachers");
-    teachers.value = response.data;
-  } catch (error) {
-    console.error("Error fetching data:", error);
   }
 });
 </script>
