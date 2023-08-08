@@ -16,10 +16,12 @@ const userSchema = new mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    favorites: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: Teacher,
-    },
+    favorites: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Teacher", // Reference to the Teacher model
+      },
+    ],
   },
   { timestamps: true }
 );

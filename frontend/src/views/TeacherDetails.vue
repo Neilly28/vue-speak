@@ -61,11 +61,13 @@
     </div>
     {{ id }}
   </div>
+  <h1>{{ userId }}</h1>
 </template>
 
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
+import axios from "axios";
 
 const route = useRoute();
 
@@ -76,6 +78,67 @@ import { mdiHeart } from "@mdi/js";
 const iconType = "mdi";
 const iconPath = ref(mdiHeart);
 const favorite = ref(false);
+
+const userId = ref("");
+
+// import store
+import { useAuthStore } from "../store/auth";
+
+// initialize instance
+const authStore = useAuthStore();
+console.log(authStore);
+
+// get user from localstorage
+onMounted(() => {
+  authStore.initialize();
+  userId.value = authStore.user.userId;
+});
+
+const toggleFavorite = async () => {
+  try {
+    // Toggle the favorite value locally
+    favorite.value = !favorite.value;
+
+    // Get the current favorites array from the user's data
+    const user = authStore.user;
+    const currentFavorites = user.favorites || [];
+    console.log("USER", user);
+    console.log("Current favorites:", user.favorites);
+
+    let updatedFavorites;
+
+    if (favorite.value) {
+      // Check if the item is already in favorites
+      if (!currentFavorites.includes(route.params.id)) {
+        // Push the new favorite item if it's not already present
+        updatedFavorites = [...currentFavorites, route.params.id];
+      } else {
+        // Keep the array unchanged
+        updatedFavorites = currentFavorites;
+      }
+    } else {
+      // Remove the favorite item if it's present
+      updatedFavorites = currentFavorites.filter(
+        (id) => id !== route.params.id
+      );
+    }
+
+    // Send a PUT request to the backend
+    const response = await axios.put(
+      `http://localhost:5000/api/user/update-favorites/${userId.value}`,
+      {
+        favorites: updatedFavorites,
+      }
+    );
+
+    // Update the favorites array directly in the store using the action
+    authStore.updateFavorites(updatedFavorites);
+
+    console.log({ response });
+  } catch (error) {
+    console.log(error);
+  }
+};
 
 // import store
 import { useTeacherStore } from "../store/teachers";

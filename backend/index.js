@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const authRoute = require("./routes/auth");
 const teacherRoute = require("./routes/teacher");
+const userRoute = require("./routes/user");
 
 // configs
 dotenv.config();
@@ -14,6 +15,7 @@ app.use(express.json());
 // routes
 app.use("/api/auth", authRoute);
 app.use("/api/teachers", teacherRoute);
+app.use("/api/user", userRoute);
 
 // message for deployment
 app.get("/", async (req, res) => {

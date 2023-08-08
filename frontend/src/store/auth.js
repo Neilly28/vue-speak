@@ -7,10 +7,15 @@ export const useAuthStore = defineStore("auth", {
     loginError: null,
     signupError: null,
     isLoading: true,
+    favorites: [],
   }),
 
   // actions
   actions: {
+    async updateFavorites(updatedFavorites) {
+      this.favorites = [...updatedFavorites];
+    },
+
     async signUp(username, password) {
       this.isLoading = true;
       this.signupError = null;
