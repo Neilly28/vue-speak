@@ -1,12 +1,12 @@
 <template>
-  <nav v-if="authIsReady">
-    <div class="flex items-center justify-between mt-12 mb-24 font-bold">
+  <nav>
+    <div class="mb-24 mt-12 flex items-center justify-between font-bold">
       <!-- FOR ALL USERS -->
-      <router-link class="hover:text-cyan-400 transition-all ease-in" to="/"
+      <router-link class="transition-all ease-in hover:text-cyan-400" to="/"
         >🏡Home</router-link
       >
       <router-link
-        class="hover:text-cyan-400 transition-all ease-in"
+        class="transition-all ease-in hover:text-cyan-400"
         to="/apply"
         >💪🏻Become A Teacher</router-link
       >
@@ -14,15 +14,15 @@
       <!-- FOR LOGGED IN USERS -->
       <div v-if="user">
         <router-link
-          class="hover:text-cyan-400 transition-all ease-in"
+          class="transition-all ease-in hover:text-cyan-400"
           to="/user"
-          >👋🏻Hello, {{ user.email }}</router-link
+          >👋🏻Hello, {{ user.username }}</router-link
         >
       </div>
 
       <div v-if="user">
         <button
-          class="hover:text-cyan-400 transition-all ease-in"
+          class="transition-all ease-in hover:text-cyan-400"
           @click="handleClick"
         >
           Logout
@@ -32,12 +32,12 @@
       <!-- FOR LOGGED OUT USERS -->
       <div v-if="!user">
         <router-link
-          class="hover:text-cyan-400 transition-all ease-in"
+          class="transition-all ease-in hover:text-cyan-400"
           to="/login"
           >Login</router-link
         >
         <router-link
-          class="hover:text-cyan-400 transition-all ease-in"
+          class="transition-all ease-in hover:text-cyan-400"
           to="/signup"
           >Sign Up</router-link
         >
@@ -45,7 +45,7 @@
 
       <!-- GitHub -->
       <a
-        class="flex items-center justify-center gap-2 hover:text-cyan-400 transition-all ease-in"
+        class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
         href="https://github.com/Neilly28/vue-restaurant"
         target="_blank"
         >GitHub<svg-icon type="mdi" :path="path"
@@ -57,15 +57,21 @@
 <script setup>
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiGithub } from "@mdi/js";
-import { ref, computed } from "vue";
-import { useStore } from "vuex";
 const path = ref(mdiGithub);
+import { ref } from "vue";
+import { onMounted } from "vue";
 
-const store = useStore();
+const user = ref("");
 
-const handleClick = () => {
-  store.dispatch("logout");
-};
-const user = computed(() => store.state.user);
-const authIsReady = computed(() => store.state.authIsReady);
+// import store
+import { useAuthStore } from "../store/auth";
+
+// initialize instance
+const authStore = useAuthStore();
+console.log(authStore);
+
+onMounted(() => {
+  authStore.initialize();
+  user.value = authStore.user;
+});
 </script>
