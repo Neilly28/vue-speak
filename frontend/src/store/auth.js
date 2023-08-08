@@ -27,16 +27,19 @@ export const useAuthStore = defineStore("auth", {
         const data = await response.json();
         console.log({ data });
 
+        if (!response.ok) {
+          this.isLoading = false;
+          this.signupError = data.message;
+        }
+
         if (response.ok) {
           localStorage.setItem("user", JSON.stringify(data));
           this.user = data;
-        } else {
-          this.signupError = data.message;
+          this.isLoading = false;
         }
-      } catch (error) {
-        console.error("Sign up error:", error);
-        this.signupError = "An error occurred during sign up.";
-      } finally {
+      } catch (err) {
+        console.error("Login error:", err);
+        this.loginError = "An error occurred during login.";
         this.isLoading = false;
       }
     },
@@ -54,17 +57,21 @@ export const useAuthStore = defineStore("auth", {
         });
 
         const data = await response.json();
+        console.log({ data });
 
-        if (response.ok && data.success) {
+        if (!response.ok) {
+          this.isLoading = false;
+          this.loginError = data.message;
+        }
+
+        if (response.ok) {
           localStorage.setItem("user", JSON.stringify(data));
           this.user = data;
-        } else {
-          this.loginError = data.error || "An error occurred during login.";
+          this.isLoading = false;
         }
-      } catch (error) {
-        console.error("Login error:", error);
+      } catch (err) {
+        console.error("Login error:", err);
         this.loginError = "An error occurred during login.";
-      } finally {
         this.isLoading = false;
       }
     },

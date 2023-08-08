@@ -1,5 +1,5 @@
 <template>
-  <form @submit.prevent="handleSubmit">
+  <form @submit.prevent="handleLogin">
     <h1>Login Here</h1>
     <div class="flex flex-col items-center justify-center">
       <div>
@@ -30,26 +30,30 @@
 
 <script setup>
 import { ref } from "vue";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
-
-const store = useStore();
-const router = useRouter();
 
 const username = ref("");
 const password = ref("");
-const error = ref(null);
+const error = ref("");
+const router = useRouter();
 
-const handleSubmit = async () => {
+// import store
+import { useAuthStore } from "../store/auth";
+const authStore = useAuthStore();
+console.log(authStore);
+
+const handleLogin = async () => {
   try {
-    await store.dispatch("login", {
-      username: username.value,
-      password: password.value,
-    });
-    console.log("after login dispatched");
-    router.push("/");
+    await authStore.login(username.value, password.value);
+    if (!authStore.loginError) {
+      router.push("/");
+    } else {
+      console.error("error!");
+      error.value = authStore.loginError;
+    }
   } catch (err) {
-    error.value = err.response.data;
+    console.error(err);
+    error.value = authStore.loginError;
   }
 };
 </script>

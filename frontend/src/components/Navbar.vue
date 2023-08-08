@@ -23,7 +23,7 @@
       <div v-if="user">
         <button
           class="transition-all ease-in hover:text-cyan-400"
-          @click="handleClick"
+          @click="handleLogout"
         >
           Logout
         </button>
@@ -59,9 +59,11 @@ import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiGithub } from "@mdi/js";
 const path = ref(mdiGithub);
 import { ref } from "vue";
-import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+import { onMounted, watch } from "vue";
 
 const user = ref("");
+const router = useRouter();
 
 // import store
 import { useAuthStore } from "../store/auth";
@@ -70,8 +72,27 @@ import { useAuthStore } from "../store/auth";
 const authStore = useAuthStore();
 console.log(authStore);
 
+// get user from localstorage
 onMounted(() => {
   authStore.initialize();
   user.value = authStore.user;
 });
+
+// logout
+const handleLogout = async () => {
+  try {
+    authStore.logout();
+    router.push("/");
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+// Watcher to update user state
+watch(
+  () => authStore.user,
+  (newValue) => {
+    user.value = newValue;
+  }
+);
 </script>

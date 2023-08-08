@@ -50,6 +50,9 @@ const handleSignUp = async () => {
     await authStore.signUp(username.value, password.value);
     if (!authStore.signupError) {
       router.push("/");
+    } else {
+      console.error("error!");
+      error.value = authStore.signupError;
     }
   } catch (err) {
     console.log(err);
