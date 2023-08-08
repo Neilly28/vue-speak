@@ -100,11 +100,9 @@ const toggleFavorite = async () => {
     favorite.value = !favorite.value;
 
     // Get the current favorites array from the user's data
-    const user = authStore.user;
-    const currentFavorites = user.favorites || [];
-    console.log("USER", user);
-    console.log("Current favorites:", user.favorites);
+    const currentFavorites = authStore.favorites;
 
+    // initilize updatedFavoritss
     let updatedFavorites;
 
     if (favorite.value) {
@@ -112,9 +110,6 @@ const toggleFavorite = async () => {
       if (!currentFavorites.includes(route.params.id)) {
         // Push the new favorite item if it's not already present
         updatedFavorites = [...currentFavorites, route.params.id];
-      } else {
-        // Keep the array unchanged
-        updatedFavorites = currentFavorites;
       }
     } else {
       // Remove the favorite item if it's present
