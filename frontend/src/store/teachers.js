@@ -1,5 +1,6 @@
 import { defineStore } from "pinia";
 import axios from "axios";
+import { BASE_URL } from "../../config/api";
 
 export const useTeacherStore = defineStore("teachers", {
   // initial state
@@ -17,7 +18,7 @@ export const useTeacherStore = defineStore("teachers", {
       this.error = null;
 
       try {
-        const response = await axios.get("http://localhost:5000/api/teachers");
+        const response = await axios.get(`${BASE_URL}/teachers`);
 
         if (response.status !== 200) {
           this.isLoading = false;
@@ -38,9 +39,7 @@ export const useTeacherStore = defineStore("teachers", {
       this.error = null;
 
       try {
-        const response = await axios.get(
-          `http://localhost:5000/api/teachers/${teacherId}`
-        );
+        const response = await axios.get(`${BASE_URL}/teachers/${teacherId}`);
 
         if (response.status !== 200) {
           this.isLoading = false;
@@ -59,7 +58,7 @@ export const useTeacherStore = defineStore("teachers", {
     async fetchBookedTimes(teacherId) {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/bookings/teacher/${teacherId}`
+          `${BASE_URL}/bookings/teacher/${teacherId}`
         );
 
         if (response.status !== 200) {
@@ -77,14 +76,11 @@ export const useTeacherStore = defineStore("teachers", {
 
     async bookClass(teacherId, userId, selectedTime) {
       try {
-        const response = await axios.post(
-          `http://localhost:5000/api/bookings`,
-          {
-            teacherId,
-            userId,
-            selectedTime: selectedTime.formattedDateTime,
-          }
-        );
+        const response = await axios.post(`${BASE_URL}/bookings`, {
+          teacherId,
+          userId,
+          selectedTime: selectedTime.formattedDateTime,
+        });
         console.log({ response });
 
         if (response.status !== 201) {

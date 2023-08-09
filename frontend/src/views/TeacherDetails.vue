@@ -151,7 +151,10 @@ const toggleFavorite = async () => {
     }
 
     // Send PUT request to update user's favorites in the backend
-    await userStore.updateFavorites(userId.value);
+    const response = await userStore.updateFavorites(userId.value);
+    if (!response) {
+      router.push("/error");
+    }
   } catch (err) {
     console.error("Error updating favorites:", err);
   }
@@ -165,10 +168,10 @@ const bookClass = async () => {
     selectedTime.value
   );
 
-  if (response) {
-    router.push("/user");
-  } else {
+  if (!response) {
     router.push("/error");
+  } else {
+    router.push("/user");
   }
 };
 </script>
