@@ -6,6 +6,7 @@ const cors = require("cors");
 const authRoute = require("./routes/auth");
 const teacherRoute = require("./routes/teacher");
 const userRoute = require("./routes/user");
+const bookingRoute = require("./routes/booking");
 
 // configs
 dotenv.config();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use("/api/auth", authRoute);
 app.use("/api/teachers", teacherRoute);
 app.use("/api/user", userRoute);
+app.use("/api/bookings", bookingRoute);
 
 // message for deployment
 app.get("/", async (req, res) => {

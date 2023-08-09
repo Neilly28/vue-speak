@@ -10,6 +10,7 @@ const teacherSchema = new mongoose.Schema(
     description: { type: String, required: true },
     about: { type: String, required: true },
     price: { type: Number, required: true },
+    availableTimes: [{ type: String, required: true }],
   },
   { timestamps: true }
 );

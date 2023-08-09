@@ -55,6 +55,17 @@
       </router-link>
     </div>
   </div>
+  <div>
+    <h1>My Upcoming classes</h1>
+    <div>Show my bookings below:</div>
+    <div v-for="booking in bookings" :key="booking._id">
+      <img :src="booking.teacher.image" alt="" />
+      <h1>
+        {{ booking.teacher.name }}
+        {{ booking.date }}
+      </h1>
+    </div>
+  </div>
 </template>
 
 <script setup>
@@ -69,6 +80,7 @@ const username = ref("");
 const userId = ref("");
 const fetchedUser = ref(null);
 const teachers = ref([]);
+const bookings = ref([]);
 
 // initialize instance
 const authStore = useAuthStore();
@@ -90,5 +102,20 @@ onMounted(async () => {
       teachers.value.push(teacherStore.selectedTeacher);
     })
   );
+
+  // Fetch bookings for the user
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/bookings/user/${userId.value}`
+    );
+    if (response.ok) {
+      const data = await response.json();
+      bookings.value = data;
+    } else {
+      console.log("Failed to fetch bookings");
+    }
+  } catch (error) {
+    console.log("Error fetching bookings:", error);
+  }
 });
 </script>
