@@ -4,20 +4,21 @@ export const useUserStore = defineStore("user", {
   // initial state
   state: () => ({
     user: null,
+    favorites: [],
   }),
 
   // mutations
-  mutations: {
-    setUser(newUser) {
-      this.user = newUser;
-    },
+  // mutations: {
+  //   setUser(newUser) {
+  //     this.user = newUser;
+  //   },
 
-    updateUserFavorites(favorites) {
-      if (this.user) {
-        this.user.favorites = favorites;
-      }
-    },
-  },
+  //   updateUserFavorites(favorites) {
+  //     if (this.user) {
+  //       this.user.favorites = favorites;
+  //     }
+  //   },
+  // },
 
   // actions
   actions: {
@@ -32,16 +33,24 @@ export const useUserStore = defineStore("user", {
             },
           }
         );
-
         const data = await response.json();
-
-        if (!response.ok) {
-          console.error("Error fetching user:", data.message);
-        } else {
-          this.setUser(data);
-        }
+        this.user = data;
+        this.favorites = data.favorites;
       } catch (err) {
         console.error("Error fetching user:", err);
+      }
+    },
+
+    async addToFavorites(teacherId) {
+      if (!this.favorites.includes(teacherId)) {
+        this.favorites.push(teacherId);
+      }
+    },
+
+    async removeFromFavorites(teacherId) {
+      const index = this.favorites.indexOf(teacherId);
+      if (index !== -1) {
+        this.favorites.splice(index, 1);
       }
     },
   },

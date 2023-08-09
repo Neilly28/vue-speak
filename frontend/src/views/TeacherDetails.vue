@@ -83,10 +83,11 @@ const userId = ref("");
 
 // import store
 import { useAuthStore } from "../store/auth";
+import { useUserStore } from "../store/user";
 
 // initialize instance
 const authStore = useAuthStore();
-console.log(authStore);
+const userStore = useUserStore();
 
 // get user from localstorage
 onMounted(() => {
@@ -99,39 +100,23 @@ const toggleFavorite = async () => {
     // Toggle the favorite value locally
     favorite.value = !favorite.value;
 
-    // Get the current favorites array from the user's data
-    const currentFavorites = authStore.favorites;
-
-    // initilize updatedFavoritss
-    let updatedFavorites;
-
     if (favorite.value) {
-      // Check if the item is already in favorites
-      if (!currentFavorites.includes(route.params.id)) {
-        // Push the new favorite item if it's not already present
-        updatedFavorites = [...currentFavorites, route.params.id];
-      }
+      await userStore.addToFavorites(route.params.id);
     } else {
-      // Remove the favorite item if it's present
-      updatedFavorites = currentFavorites.filter(
-        (id) => id !== route.params.id
-      );
+      await userStore.removeFromFavorites(route.params.id);
     }
 
-    // Send a PUT request to the backend
+    // Send PUT request to update user's favorites in the backend
     const response = await axios.put(
       `http://localhost:5000/api/user/update-favorites/${userId.value}`,
       {
-        favorites: updatedFavorites,
+        favorites: userStore.favorites,
       }
     );
 
-    // Update the favorites array directly in the store using the action
-    authStore.updateFavorites(updatedFavorites);
-
     console.log({ response });
   } catch (error) {
-    console.log(error);
+    console.log("Error updating favorites:", error);
   }
 };
 
