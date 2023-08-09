@@ -83,7 +83,7 @@
 <script setup>
 // imports
 import { onMounted, ref } from "vue";
-import { useRoute } from "vue-router";
+import { useRoute, useRouter } from "vue-router";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiHeart } from "@mdi/js";
 import { useAuthStore } from "../store/auth";
@@ -92,6 +92,7 @@ import { useTeacherStore } from "../store/teachers";
 
 // initialize values
 const route = useRoute();
+const router = useRouter();
 const authStore = useAuthStore();
 const userStore = useUserStore();
 const teacherStore = useTeacherStore();
@@ -171,6 +172,7 @@ const bookClass = async () => {
 
     if (response.ok) {
       console.log("BOOKING SUCCCCESS");
+      router.push("/user");
     } else {
       console.log("BOOKING FAIL");
     }
@@ -183,7 +185,7 @@ const bookClass = async () => {
 const fetchBookedTimes = async () => {
   try {
     const response = await fetch(
-      `http://localhost:5000/api/bookings/teacher/64ceb69345adaa26699a5e2b`,
+      `http://localhost:5000/api/bookings/teacher/${route.params.id}`,
       {
         method: "GET",
         headers: {

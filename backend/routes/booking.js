@@ -57,4 +57,24 @@ router.get("/teacher/:id", async (req, res) => {
   }
 });
 
+// DELETE BOOKING
+router.delete("/:id", async (req, res) => {
+  try {
+    const bookingId = req.params.id;
+
+    // You can perform additional validations and checks here if needed
+
+    const deletedBooking = await Booking.findByIdAndDelete(bookingId);
+
+    if (!deletedBooking) {
+      return res.status(404).json({ message: "Booking not found" });
+    }
+
+    res.status(200).json({ message: "Booking cancelled successfully" });
+  } catch (error) {
+    console.error("Error cancelling booking:", error);
+    res.status(500).json({ message: "Error cancelling booking" });
+  }
+});
+
 module.exports = router;
