@@ -75,12 +75,6 @@ const teacher = ref({});
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiHeart } from "@mdi/js";
 
-const iconType = "mdi";
-const iconPath = ref(mdiHeart);
-const favorite = ref(false);
-
-const userId = ref("");
-
 // import store
 import { useAuthStore } from "../store/auth";
 import { useUserStore } from "../store/user";
@@ -88,6 +82,12 @@ import { useUserStore } from "../store/user";
 // initialize instance
 const authStore = useAuthStore();
 const userStore = useUserStore();
+
+const iconType = "mdi";
+const iconPath = ref(mdiHeart);
+const favorite = ref(userStore.favorites.includes(route.params.id));
+
+const userId = ref("");
 
 // get user from localstorage
 onMounted(() => {
