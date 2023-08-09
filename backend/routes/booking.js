@@ -32,4 +32,29 @@ router.get("/user/:id", async (req, res) => {
   }
 });
 
+// GET ALL BOOKINGS
+router.get("/", async (req, res) => {
+  try {
+    const bookings = await Booking.find();
+    res.status(200).json(bookings);
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
+
+// GET BOOKINGS FOR SPECIFIC TEACHER
+router.get("/teacher/:id", async (req, res) => {
+  try {
+    const teacherId = req.params.id;
+
+    // Validate and sanitize teacherId here if needed
+
+    const bookings = await Booking.find({ teacher: teacherId });
+    res.status(200).json(bookings);
+  } catch (error) {
+    console.error("Error retrieving teacher bookings:", error);
+    res.status(500).json({ message: "Error retrieving teacher bookings" });
+  }
+});
+
 module.exports = router;

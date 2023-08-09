@@ -44,8 +44,8 @@
         <!-- TIME SELECTION -->
         <select v-model="selectedTime" class="rounded-full border p-2">
           <option value="">Check my availability</option>
-          <option v-for="time in dummyTimes" :key="time" :value="time">
-            {{ time.formattedDate }}
+          <option v-for="time in availableTimes" :key="time" :value="time">
+            {{ time.formattedDateTime }}
           </option>
         </select>
 
@@ -68,6 +68,8 @@
         <p>{{ teacher.about }}</p>
       </div>
     </div>
+    {{ bookedTimes }}
+    {{ standardTimes }}
   </div>
 </template>
 
@@ -92,16 +94,37 @@ const userId = ref("");
 const iconType = "mdi";
 const iconPath = ref(mdiHeart);
 
+const standardTimes = ref([
+  { formattedDateTime: "Monday 4:45 PM" },
+  { formattedDateTime: "Tuesday 9:30 AM" },
+  { formattedDateTime: "Wednesday 1:00 PM" },
+  { formattedDateTime: "Thursday 3:30 PM" },
+  { formattedDateTime: "Friday 10:00 AM" },
+  { formattedDateTime: "Saturday 2:15 PM" },
+  { formattedDateTime: "Sunday 11:30 AM" },
+]);
+
+// Check if dummyTimes is already defined, otherwise generate the dummy times array
+const selectedTime = ref("");
+const bookedTimes = ref([]); // Store booked times
+const availableTimes = ref([]);
+
 // get user from localstorage
-onMounted(() => {
+onMounted(async () => {
   authStore.initialize();
   userId.value = authStore.user.userId;
-});
 
-// fetch selected teacher when component is mounted
-onMounted(async () => {
+  // fetch selected teacher when component is mounted
   await teacherStore.fetchTeacherById(route.params.id);
   teacher.value = teacherStore.selectedTeacher;
+
+  // Fetch booked times for the specific teacher and store them in the bookedTimes array
+  bookedTimes.value = await fetchBookedTimes(route.params.id);
+
+  // Calculate available times by filtering out booked times
+  availableTimes.value = standardTimes.value.filter(
+    (time) => !bookedTimes.value.includes(time.formattedDateTime)
+  );
 });
 
 // toggle favorite teachers
@@ -135,7 +158,7 @@ const bookClass = async () => {
       body: JSON.stringify({
         teacherId: route.params.id,
         userId: userId.value,
-        selectedTime: selectedTime.value.formattedDate,
+        selectedTime: selectedTime.value.formattedDateTime,
       }),
     });
 
@@ -149,53 +172,32 @@ const bookClass = async () => {
   }
 };
 
-const generateDummyTimes = () => {
-  const times = [];
+// fetch booked times
+const fetchBookedTimes = async () => {
+  try {
+    const response = await fetch(
+      `http://localhost:5000/api/bookings/teacher/64ceb69345adaa26699a5e2b`,
+      {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
 
-  const weekdays = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ];
-  const now = new Date();
-  const maxDays = 3;
-  const maxSlotsPerDay = 3;
-
-  for (let day = 0; day < maxDays; day++) {
-    const currentDate = new Date(now);
-    currentDate.setDate(now.getDate() + day);
-    const currentDayOfWeek = weekdays[currentDate.getDay()];
-
-    for (let slot = 0; slot < maxSlotsPerDay; slot++) {
-      const time = new Date(currentDate);
-      const hour = 8 + slot; // Starting from 8 AM
-      time.setHours(hour);
-      time.setMinutes(0);
-
-      const formattedDate = `${currentDayOfWeek}, ${time.toLocaleTimeString(
-        [],
-        {
-          hour: "2-digit",
-          minute: "2-digit",
-        }
-      )}`;
-
-      times.push({
-        formattedDate: formattedDate,
-      });
+    if (response.ok) {
+      const data = await response.json();
+      console.log({ data });
+      const bookedTimes = data.map((booking) => booking.date);
+      console.log({ bookedTimes });
+      return bookedTimes;
+    } else {
+      console.log("Failed to fetch booked times");
+      return [];
     }
+  } catch (error) {
+    console.log("Error fetching booked times:", error);
+    return [];
   }
-
-  return times;
 };
-
-// Initialize selectedTime with an empty string
-const selectedTime = ref("");
-
-// Check if dummyTimes is already defined, otherwise generate the dummy times array
-const dummyTimes = ref(generateDummyTimes());
 </script>

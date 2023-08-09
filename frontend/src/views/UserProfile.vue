@@ -16,10 +16,10 @@
             <img class="w-24 rounded-full" :src="booking.teacher.image" />
             <div class="flex flex-col items-start justify-center text-left">
               <h2 class="text-2xl font-bold">{{ booking.teacher.name }}</h2>
-              <h2 class="text-sm text-slate-400">
+              <h2 class="text-xs text-slate-400">
                 {{
                   booking.teacher.professional
-                    ? "Professional Teacher"
+                    ? "Professional Teacher ✅"
                     : "Community Tutor"
                 }}
               </h2>
@@ -74,10 +74,10 @@
           <img class="w-24 rounded-full" :src="teacher.image" alt="" />
           <div class="flex flex-col items-start justify-center text-left">
             <h2 class="text-2xl font-bold">{{ teacher.name }}</h2>
-            <h2 class="text-sm text-slate-400">
+            <h2 class="text-xs text-slate-400">
               {{
                 teacher.professional
-                  ? "Professional Teacher"
+                  ? "Professional Teacher ✅"
                   : "Community Tutor"
               }}
             </h2>
