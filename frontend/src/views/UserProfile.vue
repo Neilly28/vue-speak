@@ -48,7 +48,7 @@
 
           <button
             @click="handleCancelBooking(booking._id)"
-            class="cursor-pointer rounded-full bg-red-500 px-4 py-2 font-bold text-white opacity-0 duration-300 ease-in-out group-hover:opacity-100"
+            class="cursor-pointer rounded-full bg-red-400 px-4 py-2 font-bold text-white opacity-0 duration-300 ease-in-out hover:bg-red-500 group-hover:opacity-100"
           >
             Cancel
           </button>

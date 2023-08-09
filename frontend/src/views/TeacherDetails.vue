@@ -64,7 +64,7 @@
           <button
             :disabled="!selectedTime"
             @click="bookClass"
-            class="cursor-pointer rounded-full bg-red-500 px-4 py-2 font-bold text-white transition-all hover:bg-red-600 disabled:bg-slate-400"
+            class="cursor-pointer rounded-full bg-cyan-200 px-4 py-2 font-bold text-cyan-800 transition-all hover:bg-cyan-300 disabled:bg-slate-400 disabled:text-slate-100"
           >
             Book a class
           </button>
