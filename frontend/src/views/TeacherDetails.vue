@@ -77,6 +77,7 @@
         <p>{{ teacher.about }}</p>
       </div>
     </div>
+    {{ error }}
   </div>
 </template>
 
@@ -101,9 +102,10 @@ const teacher = ref({});
 const userId = ref("");
 const iconType = "mdi";
 const iconPath = ref(mdiHeart);
+const error = ref(null);
 
 const standardTimes = ref([
-  { formattedDateTime: "Monday 16:45 PM" },
+  { formattedDateTime: "Monday 4:45 PM" },
   { formattedDateTime: "Tuesday 9:30 AM" },
   { formattedDateTime: "Wednesday 1:00 PM" },
   { formattedDateTime: "Thursday 3:30 PM" },
@@ -114,10 +116,10 @@ const standardTimes = ref([
 
 // Check if dummyTimes is already defined, otherwise generate the dummy times array
 const selectedTime = ref("");
-const bookedTimes = ref([]); // Store booked times
+const bookedTimes = ref([]);
 const availableTimes = ref([]);
 
-// get user from localstorage
+// get data from store
 onMounted(async () => {
   authStore.initialize();
   userId.value = authStore.user.userId;
@@ -127,7 +129,7 @@ onMounted(async () => {
   teacher.value = teacherStore.selectedTeacher;
 
   // Fetch booked times for the specific teacher and store them in the bookedTimes array
-  bookedTimes.value = await fetchBookedTimes(route.params.id);
+  bookedTimes.value = await teacherStore.fetchBookedTimes(route.params.id);
 
   // Calculate available times by filtering out booked times
   availableTimes.value = standardTimes.value.filter(
@@ -150,63 +152,23 @@ const toggleFavorite = async () => {
 
     // Send PUT request to update user's favorites in the backend
     await userStore.updateFavorites(userId.value);
-  } catch (error) {
-    console.log("Error updating favorites:", error);
+  } catch (err) {
+    console.error("Error updating favorites:", err);
   }
 };
 
 // booking functionality
 const bookClass = async () => {
-  try {
-    const response = await fetch(`http://localhost:5000/api/bookings`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        teacherId: route.params.id,
-        userId: userId.value,
-        selectedTime: selectedTime.value.formattedDateTime,
-      }),
-    });
+  const response = await teacherStore.bookClass(
+    route.params.id,
+    userId.value,
+    selectedTime.value
+  );
 
-    if (response.ok) {
-      console.log("BOOKING SUCCCCESS");
-      router.push("/user");
-    } else {
-      console.log("BOOKING FAIL");
-    }
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-// fetch booked times
-const fetchBookedTimes = async () => {
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/bookings/teacher/${route.params.id}`,
-      {
-        method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
-
-    if (response.ok) {
-      const data = await response.json();
-      console.log({ data });
-      const bookedTimes = data.map((booking) => booking.date);
-      console.log({ bookedTimes });
-      return bookedTimes;
-    } else {
-      console.log("Failed to fetch booked times");
-      return [];
-    }
-  } catch (error) {
-    console.log("Error fetching booked times:", error);
-    return [];
+  if (response) {
+    router.push("/user");
+  } else {
+    router.push("/error");
   }
 };
 </script>

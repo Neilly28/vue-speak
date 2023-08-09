@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import UserProfile from "../views/UserProfile.vue";
 import TeacherDetails from "../views/TeacherDetails.vue";
 import Apply from "../views/Apply.vue";
+import Error from "../views/Error.vue";
 
 import { createRouter, createWebHistory } from "vue-router";
 
@@ -13,6 +14,11 @@ const routes = [
     path: "/",
     component: DefaultLayout,
     children: [
+      {
+        path: "/error",
+        name: "Error",
+        component: Error,
+      },
       {
         path: "/",
         name: "Home",
