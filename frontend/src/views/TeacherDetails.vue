@@ -103,7 +103,7 @@ const iconType = "mdi";
 const iconPath = ref(mdiHeart);
 
 const standardTimes = ref([
-  { formattedDateTime: "Monday 4:45 PM" },
+  { formattedDateTime: "Monday 16:45 PM" },
   { formattedDateTime: "Tuesday 9:30 AM" },
   { formattedDateTime: "Wednesday 1:00 PM" },
   { formattedDateTime: "Thursday 3:30 PM" },

@@ -38,10 +38,10 @@
         <div>
           <p class="text-left text-sm">{{ booking.teacher.description }}</p>
         </div>
-        <div class="flex items-center justify-evenly gap-4">
+        <div class="flex w-full items-center justify-between">
           <div>
             <p class="text-left text-sm text-slate-400">Upcoming class</p>
-            <h3 class="text-md text-left font-bold">
+            <h3 class="text-left text-base font-bold">
               <h1>{{ booking.date }}</h1>
             </h3>
           </div>
