@@ -12,20 +12,13 @@ export const useUserStore = defineStore("user", {
   actions: {
     async fetchUser(userId) {
       try {
-        const response = await fetch(
-          `http://localhost:5000/api/user/${userId}`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-            },
-          }
+        const response = await axios.get(
+          `http://localhost:5000/api/user/${userId}`
         );
-        const data = await response.json();
-        this.user = data;
-        this.favorites = data.favorites;
-      } catch (err) {
-        console.error("Error fetching user:", err);
+        this.user = response.data;
+        this.favorites = response.data.favorites;
+      } catch (error) {
+        console.error("Error fetching user:", error);
       }
     },
 
@@ -38,17 +31,17 @@ export const useUserStore = defineStore("user", {
           }
         );
       } catch (error) {
-        console.log("Error updating favorites:", error);
+        console.error("Error updating favorites:", error);
       }
     },
 
-    async addToFavorites(teacherId) {
+    addToFavorites(teacherId) {
       if (!this.favorites.includes(teacherId)) {
         this.favorites.push(teacherId);
       }
     },
 
-    async removeFromFavorites(teacherId) {
+    removeFromFavorites(teacherId) {
       const index = this.favorites.indexOf(teacherId);
       if (index !== -1) {
         this.favorites.splice(index, 1);

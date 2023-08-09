@@ -24,7 +24,6 @@ export const useTeacherStore = defineStore("teachers", {
         });
 
         const data = await response.json();
-        console.log({ data });
 
         if (!response.ok) {
           this.isLoading = false;
@@ -56,7 +55,6 @@ export const useTeacherStore = defineStore("teachers", {
         );
 
         const data = await response.json();
-        console.log({ data });
 
         if (!response.ok) {
           this.isLoading = false;

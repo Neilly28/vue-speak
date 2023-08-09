@@ -59,34 +59,29 @@
         <p>{{ teacher.about }}</p>
       </div>
     </div>
-    {{ id }}
   </div>
-  <h1>{{ userId }}</h1>
 </template>
 
 <script setup>
+// imports
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-
-const route = useRoute();
-
-const teacher = ref({});
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiHeart } from "@mdi/js";
-
-// import store
 import { useAuthStore } from "../store/auth";
 import { useUserStore } from "../store/user";
+import { useTeacherStore } from "../store/teachers";
 
-// initialize instance
+// initialize values
+const route = useRoute();
 const authStore = useAuthStore();
 const userStore = useUserStore();
-
+const teacherStore = useTeacherStore();
+const favorite = ref(userStore.favorites.includes(route.params.id));
+const teacher = ref({});
+const userId = ref("");
 const iconType = "mdi";
 const iconPath = ref(mdiHeart);
-const favorite = ref(userStore.favorites.includes(route.params.id));
-
-const userId = ref("");
 
 // get user from localstorage
 onMounted(() => {
@@ -94,25 +89,23 @@ onMounted(() => {
   userId.value = authStore.user.userId;
 });
 
-// import store
-import { useTeacherStore } from "../store/teachers";
-const teacherStore = useTeacherStore();
-
 // fetch selected teacher when component is mounted
 onMounted(async () => {
   await teacherStore.fetchTeacherById(route.params.id);
   teacher.value = teacherStore.selectedTeacher;
 });
 
+// toggle favorite teachers
 const toggleFavorite = async () => {
   try {
     // Toggle the favorite value locally
     favorite.value = !favorite.value;
 
+    // if favorite, add to array else remove
     if (favorite.value) {
-      await userStore.addToFavorites(route.params.id);
+      userStore.addToFavorites(route.params.id);
     } else {
-      await userStore.removeFromFavorites(route.params.id);
+      userStore.removeFromFavorites(route.params.id);
     }
 
     // Send PUT request to update user's favorites in the backend
@@ -122,5 +115,3 @@ const toggleFavorite = async () => {
   }
 };
 </script>
-
-<style lang="scss" scoped></style>

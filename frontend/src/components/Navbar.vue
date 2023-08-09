@@ -70,7 +70,6 @@ import { useAuthStore } from "../store/auth";
 
 // initialize instance
 const authStore = useAuthStore();
-console.log(authStore);
 
 // get user from localstorage
 onMounted(() => {

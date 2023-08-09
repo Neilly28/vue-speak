@@ -54,11 +54,6 @@
         </div>
       </router-link>
     </div>
-
-    {{ userId }}
-
-    {{ fetchedUser?.username }}
-    {{ fetchedUser?.favorites }}
   </div>
 </template>
 
