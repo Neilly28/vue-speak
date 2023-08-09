@@ -67,7 +67,6 @@
 <script setup>
 import { onMounted, ref } from "vue";
 import { useRoute } from "vue-router";
-import axios from "axios";
 
 const route = useRoute();
 
@@ -95,6 +94,16 @@ onMounted(() => {
   userId.value = authStore.user.userId;
 });
 
+// import store
+import { useTeacherStore } from "../store/teachers";
+const teacherStore = useTeacherStore();
+
+// fetch selected teacher when component is mounted
+onMounted(async () => {
+  await teacherStore.fetchTeacherById(route.params.id);
+  teacher.value = teacherStore.selectedTeacher;
+});
+
 const toggleFavorite = async () => {
   try {
     // Toggle the favorite value locally
@@ -107,28 +116,11 @@ const toggleFavorite = async () => {
     }
 
     // Send PUT request to update user's favorites in the backend
-    const response = await axios.put(
-      `http://localhost:5000/api/user/update-favorites/${userId.value}`,
-      {
-        favorites: userStore.favorites,
-      }
-    );
-
-    console.log({ response });
+    await userStore.updateFavorites(userId.value);
   } catch (error) {
     console.log("Error updating favorites:", error);
   }
 };
-
-// import store
-import { useTeacherStore } from "../store/teachers";
-const teacherStore = useTeacherStore();
-
-// fetch selected teacher when component is mounted
-onMounted(async () => {
-  await teacherStore.fetchTeacherById(route.params.id);
-  teacher.value = teacherStore.selectedTeacher;
-});
 </script>
 
 <style lang="scss" scoped></style>

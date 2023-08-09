@@ -1,4 +1,5 @@
 import { defineStore } from "pinia";
+import axios from "axios";
 
 export const useUserStore = defineStore("user", {
   // initial state
@@ -6,19 +7,6 @@ export const useUserStore = defineStore("user", {
     user: null,
     favorites: [],
   }),
-
-  // mutations
-  // mutations: {
-  //   setUser(newUser) {
-  //     this.user = newUser;
-  //   },
-
-  //   updateUserFavorites(favorites) {
-  //     if (this.user) {
-  //       this.user.favorites = favorites;
-  //     }
-  //   },
-  // },
 
   // actions
   actions: {
@@ -38,6 +26,19 @@ export const useUserStore = defineStore("user", {
         this.favorites = data.favorites;
       } catch (err) {
         console.error("Error fetching user:", err);
+      }
+    },
+
+    async updateFavorites(userId) {
+      try {
+        await axios.put(
+          `http://localhost:5000/api/user/update-favorites/${userId}`,
+          {
+            favorites: this.favorites,
+          }
+        );
+      } catch (error) {
+        console.log("Error updating favorites:", error);
       }
     },
 
