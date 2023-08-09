@@ -33,33 +33,42 @@
       </div>
 
       <!-- CTA SECTION -->
-      <div class="flex items-center justify-evenly gap-4">
-        <div>
-          <p class="text-left text-sm text-slate-400">Trial from</p>
-          <h3 class="text-left text-xl font-bold">
-            EUR {{ teacher.price?.toFixed(2) }}
-          </h3>
+      <div class="flex items-center justify-evenly gap-8">
+        <div class="flex items-center justify-center gap-4">
+          <div>
+            <p class="text-left text-sm text-slate-400">Trial from</p>
+            <h3 class="text-left text-xl font-bold">
+              EUR {{ teacher.price?.toFixed(2) }}
+            </h3>
+          </div>
+          <img
+            class="w-20"
+            src="/klarna.png
+          "
+            alt=""
+          />
         </div>
 
         <!-- TIME SELECTION -->
-        <select v-model="selectedTime" class="rounded-full border p-2">
-          <option value="">Check my availability</option>
-          <option v-for="time in availableTimes" :key="time" :value="time">
-            {{ time.formattedDateTime }}
-          </option>
-        </select>
+        <div class="flex items-center justify-center gap-4">
+          <select
+            v-model="selectedTime"
+            class="cursor-pointer rounded-full border p-2"
+          >
+            <option value="">Check my availability</option>
+            <option v-for="time in availableTimes" :key="time" :value="time">
+              {{ time.formattedDateTime }}
+            </option>
+          </select>
 
-        <button
-          @click="bookClass"
-          class="cursor-pointer rounded-full bg-red-500 px-4 py-2 font-bold text-white transition-all hover:bg-red-600"
-        >
-          Book a class
-        </button>
-        <!-- <button
-          class="cursor-pointer rounded-full bg-slate-200 px-4 py-2 font-bold text-slate-800 transition-all hover:bg-slate-300"
-        >
-          Contact Teacher
-        </button> -->
+          <button
+            :disabled="!selectedTime"
+            @click="bookClass"
+            class="cursor-pointer rounded-full bg-red-500 px-4 py-2 font-bold text-white transition-all hover:bg-red-600 disabled:bg-slate-400"
+          >
+            Book a class
+          </button>
+        </div>
       </div>
 
       <!-- ABOUT SECTION -->
@@ -68,8 +77,6 @@
         <p>{{ teacher.about }}</p>
       </div>
     </div>
-    {{ bookedTimes }}
-    {{ standardTimes }}
   </div>
 </template>
 
