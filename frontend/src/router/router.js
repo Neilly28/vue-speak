@@ -4,10 +4,20 @@ import SignUp from "../views/SignUp.vue";
 import Login from "../views/Login.vue";
 import UserProfile from "../views/UserProfile.vue";
 import TeacherDetails from "../views/TeacherDetails.vue";
-import Apply from "../views/Apply.vue";
+// import Apply from "../views/Apply.vue";
 import Error from "../views/Error.vue";
-
+import { useAuthStore } from "@/store/auth";
 import { createRouter, createWebHistory } from "vue-router";
+
+const isLoggedIn = (to, from, next) => {
+  const authStore = useAuthStore();
+  console.log(authStore.user);
+  if (authStore.user) {
+    next({ name: "Home" }); // Redirect to home page if user is already authenticated
+  } else {
+    next(); // Allow navigation to the login route
+  }
+};
 
 const routes = [
   {
@@ -28,17 +38,19 @@ const routes = [
         path: "/signup",
         name: "SignUp",
         component: SignUp,
+        beforeEnter: isLoggedIn,
       },
       {
         path: "/login",
         name: "Login",
         component: Login,
+        beforeEnter: isLoggedIn,
       },
-      {
-        path: "/apply",
-        name: "Apply",
-        component: Apply,
-      },
+      // {
+      //   path: "/apply",
+      //   name: "Apply",
+      //   component: Apply,
+      // },
       {
         path: "/user",
         name: "UserProfile",
@@ -57,6 +69,13 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(),
   routes,
+});
+
+// In your router.js file
+router.beforeEach((to, from, next) => {
+  const authStore = useAuthStore();
+  authStore.initialize(); // Call the initialize action before each route navigation
+  next();
 });
 
 export default router;

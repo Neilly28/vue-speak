@@ -28,7 +28,7 @@ export const useAuthStore = defineStore("auth", {
         } else {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data));
-          this.user = response.data;
+          this.user = response.username;
           this.isLoading = false;
           return response;
         }
@@ -56,7 +56,7 @@ export const useAuthStore = defineStore("auth", {
         } else {
           localStorage.setItem("token", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data));
-          this.user = response.data;
+          this.user = response.username;
           this.isLoading = false;
           return response;
         }

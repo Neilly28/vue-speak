@@ -31,7 +31,12 @@ router.post("/signup", async (req, res) => {
     });
 
     // Return the user and the token to the client
-    res.status(201).json({ user: savedUser, token });
+    res.status(201).json({
+      token,
+      userId: savedUser._id,
+      username: savedUser.username,
+      favorites: savedUser.favorites,
+    });
   } catch (err) {
     console.log("hello from new user");
     res.status(500).json({ error: err.message });
