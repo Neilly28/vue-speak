@@ -45,7 +45,6 @@ export const useFavoriteStore = defineStore("favorite", {
         console.log(response);
       } catch (err) {
         console.error("Error toggling favorite:", err);
-        // Handle error if needed
       }
     },
   },

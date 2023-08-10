@@ -48,11 +48,17 @@ import { useAuthStore } from "../store/auth";
 const authStore = useAuthStore();
 
 const handleLogin = async () => {
-  await authStore.login(username.value, password.value);
-  if (!authStore.error) {
-    router.push("/");
-  } else {
-    error.value = authStore.error;
+  try {
+    await authStore.login(username.value, password.value);
+    if (!authStore.error) {
+      router.push("/");
+    } else {
+      console.error("Error during sign up:", authStore.error);
+      error.value = authStore.error;
+    }
+  } catch (error) {
+    console.error("An unexpected error occurred:", error);
+    router.push("/error");
   }
 };
 </script>
