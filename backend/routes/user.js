@@ -44,4 +44,21 @@ router.put("/update-favorites/:id", async (req, res) => {
   }
 });
 
+// GET FAVORITE TEACHERS
+router.get("/favorites/:id", async (req, res) => {
+  try {
+    const user = await User.findById(req.params.id);
+
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const favoriteTeachers = user.favorites;
+
+    res.status(200).json(favoriteTeachers);
+  } catch (error) {
+    res.status(500).json({ message: "Error retrieving favorite teachers" });
+  }
+});
+
 module.exports = router;

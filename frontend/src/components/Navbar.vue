@@ -5,11 +5,11 @@
       <router-link class="transition-all ease-in hover:text-cyan-400" to="/"
         >🏡Home</router-link
       >
-      <router-link
+      <!-- <router-link
         class="transition-all ease-in hover:text-cyan-400"
         to="/apply"
         >💪🏻Become A Teacher</router-link
-      >
+      > -->
 
       <!-- FOR LOGGED IN USERS -->
       <div v-if="user">
@@ -78,12 +78,12 @@ onMounted(() => {
 });
 
 // logout
-const handleLogout = async () => {
-  try {
-    authStore.logout();
+const handleLogout = () => {
+  authStore.logout();
+  if (!authStore.error) {
     router.push("/");
-  } catch (err) {
-    console.log(err);
+  } else {
+    router.push("/error");
   }
 };
 

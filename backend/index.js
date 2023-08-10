@@ -7,6 +7,7 @@ const authRoute = require("./routes/auth");
 const teacherRoute = require("./routes/teacher");
 const userRoute = require("./routes/user");
 const bookingRoute = require("./routes/booking");
+const favoriteRoute = require("./routes/favorite");
 
 // configs
 dotenv.config();
@@ -18,6 +19,7 @@ app.use("/api/auth", authRoute);
 app.use("/api/teachers", teacherRoute);
 app.use("/api/user", userRoute);
 app.use("/api/bookings", bookingRoute);
+app.use("/api/favorites", favoriteRoute);
 
 // message for deployment
 app.get("/", async (req, res) => {

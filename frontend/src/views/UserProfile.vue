@@ -111,6 +111,7 @@
           </button>
         </div>
       </router-link>
+      {{ favoriteStore.favorites }}
     </div>
   </div>
 </template>
@@ -120,7 +121,9 @@
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "../store/auth";
 import { useUserStore } from "../store/user";
-import { useTeacherStore } from "../store/teachers";
+// import { useTeacherStore } from "../store/teachers";
+import { useBookingStore } from "../store/booking";
+import { useFavoriteStore } from "../store/favorite";
 
 // refs
 const username = ref("");
@@ -132,7 +135,9 @@ const bookings = ref([]);
 // initialize instance
 const authStore = useAuthStore();
 const userStore = useUserStore();
-const teacherStore = useTeacherStore();
+// const teacherStore = useTeacherStore();
+const bookingStore = useBookingStore();
+const favoriteStore = useFavoriteStore();
 
 // get user from localstorage
 onMounted(async () => {
@@ -142,28 +147,21 @@ onMounted(async () => {
   await userStore.fetchUser(userId.value);
   fetchedUser.value = userStore.user;
 
-  // Fetch details for each teacher
-  await Promise.all(
-    fetchedUser.value.favorites.map(async (teacherId) => {
-      await teacherStore.fetchTeacherById(teacherId);
-      teachers.value.push(teacherStore.selectedTeacher);
-    })
-  );
+  // Fetch bookings
+  await bookingStore.fetchBookings(userId.value);
+  bookings.value = bookingStore.bookings;
 
-  // Fetch bookings for the user
-  try {
-    const response = await fetch(
-      `http://localhost:5000/api/bookings/user/${userId.value}`
-    );
-    if (response.ok) {
-      const data = await response.json();
-      bookings.value = data;
-    } else {
-      console.log("Failed to fetch bookings");
-    }
-  } catch (error) {
-    console.log("Error fetching bookings:", error);
-  }
+  // Fetch favorites
+  // await Promise.all(
+  //   fetchedUser.value.favorites.map(async (teacherId) => {
+  //     await teacherStore.fetchTeacherById(teacherId);
+  //     teachers.value.push(teacherStore.selectedTeacher);
+  //   })
+  // );
+
+  // fetch favorites
+  await favoriteStore.fetchFavorites(userId.value);
+  teachers.value = favoriteStore.favorites;
 });
 
 const handleCancelBooking = async (bookingId) => {

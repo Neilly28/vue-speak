@@ -5,10 +5,9 @@
         Start learning with one of our top teachers!
       </h1>
       <p class="mb-24 text-lg">
-        There isn't a single way to teach a language. Book a regular lesson or a
-        trial lessons to get an introduction to a teacher's style. We have
-        teachers who specialize in teaching the foundations of German all the
-        way to advanced topics.
+        There isn't a single way to teach a language. Book a trial lesson to get
+        an introduction to a teacher's style. We have teachers who specialize in
+        teaching the basics all the way to advanced topics.
       </p>
     </div>
 

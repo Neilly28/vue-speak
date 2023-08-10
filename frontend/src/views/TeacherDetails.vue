@@ -25,7 +25,7 @@
           :type="iconType"
           :path="iconPath"
           @click="toggleFavorite"
-          :class="favorite ? 'text-red-400' : 'text-slate-400'"
+          :class="isFavorite ? 'text-red-400' : 'text-slate-400'"
         ></svg-icon>
       </div>
       <div>
@@ -88,16 +88,20 @@ import { useRoute, useRouter } from "vue-router";
 import SvgIcon from "@jamescoyle/vue-icon";
 import { mdiHeart } from "@mdi/js";
 import { useAuthStore } from "../store/auth";
-import { useUserStore } from "../store/user";
 import { useTeacherStore } from "../store/teachers";
+import { useFavoriteStore } from "../store/favorite";
 
 // initialize values
 const route = useRoute();
 const router = useRouter();
 const authStore = useAuthStore();
-const userStore = useUserStore();
 const teacherStore = useTeacherStore();
-const favorite = ref(userStore.favorites.includes(route.params.id));
+const favoriteStore = useFavoriteStore();
+
+const isFavorite = ref(
+  favoriteStore.favorites.map((item) => item._id).includes(route.params.id)
+);
+
 const teacher = ref({});
 const userId = ref("");
 const iconType = "mdi";
@@ -138,26 +142,20 @@ onMounted(async () => {
 });
 
 // toggle favorite teachers
+
 const toggleFavorite = async () => {
-  try {
-    // Toggle the favorite value locally
-    favorite.value = !favorite.value;
+  // Immediately update the UI
+  isFavorite.value = !isFavorite.value;
 
-    // if favorite, add to array else remove
-    if (favorite.value) {
-      userStore.addToFavorites(route.params.id);
-    } else {
-      userStore.removeFromFavorites(route.params.id);
-    }
-
-    // Send PUT request to update user's favorites in the backend
-    const response = await userStore.updateFavorites(userId.value);
-    if (!response) {
-      router.push("/error");
-    }
-  } catch (err) {
-    console.error("Error updating favorites:", err);
-  }
+  // Make the asynchronous request to update the favorite status
+  await favoriteStore
+    .toggleFavorite(userId.value, teacher.value._id)
+    .catch((error) => {
+      // Handle the error if needed
+      console.error("Error toggling favorite:", error);
+      // Revert the UI update if the request fails
+      isFavorite.value = !isFavorite.value;
+    });
 };
 
 // booking functionality
