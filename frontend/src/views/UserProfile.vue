@@ -1,10 +1,5 @@
 <template>
-  <template v-if="isLoading">
-    <div class="m-auto mb-4 mt-72 text-center text-4xl font-bold">
-      <h1 class="text-2xl font-bold">Loading</h1>
-      <PulseLoader :loading="isLoading" />
-    </div>
-  </template>
+  <Loading v-if="isLoading" />
   <template v-else>
     <div>
       <h1 v-if="bookings.length > 0" class="mb-4 mt-12 text-2xl font-bold">
@@ -129,9 +124,8 @@ import { onMounted, ref } from "vue";
 import { useAuthStore } from "../store/auth";
 import { useBookingStore } from "../store/booking";
 import { useFavoriteStore } from "../store/favorite";
-import router from "@/router/router";
-
-import PulseLoader from "vue-spinner/src/PulseLoader.vue";
+import { useRouter } from "vue-router";
+import Loading from "../components/Loading.vue";
 
 // refs
 const username = ref("");
@@ -143,6 +137,7 @@ const isLoading = ref(true);
 const authStore = useAuthStore();
 const bookingStore = useBookingStore();
 const favoriteStore = useFavoriteStore();
+const router = useRouter();
 
 onMounted(async () => {
   authStore.initialize();

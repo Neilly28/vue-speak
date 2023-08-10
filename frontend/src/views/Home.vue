@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Loading v-if="isLoading" />
+  <div v-else>
     <div class="text-center">
       <h1 class="mb-8 mt-12 text-5xl font-bold">
         Start learning with one of our top teachers!
@@ -95,11 +96,15 @@
 
 <script setup>
 import { onMounted, ref, computed } from "vue";
+import { useRouter } from "vue-router";
 
 const teachers = ref([]);
 const selectedLanguage = ref("");
 const selectedProfession = ref("");
 const searchTerm = ref("");
+const router = useRouter();
+const isLoading = ref(true);
+import Loading from "../components/Loading.vue";
 
 // import store
 import { useTeacherStore } from "../store/teachers";
@@ -107,8 +112,15 @@ const teacherStore = useTeacherStore();
 
 // fetch teachers when component is mounted
 onMounted(async () => {
-  await teacherStore.fetchTeachers();
-  teachers.value = teacherStore.teachers;
+  try {
+    await teacherStore.fetchTeachers();
+    teachers.value = teacherStore.teachers;
+  } catch (error) {
+    console.error("Error fetching teachers:", error);
+    router.push("/error");
+  } finally {
+    isLoading.value = false;
+  }
 });
 
 // language and professional filter

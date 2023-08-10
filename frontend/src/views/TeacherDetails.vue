@@ -1,5 +1,6 @@
 <template>
-  <div>
+  <Loading v-if="isLoading" />
+  <div v-else>
     <div
       class="group m-auto flex max-w-2xl cursor-pointer flex-col items-start justify-around gap-6 rounded-3xl bg-white p-12 shadow-md"
     >
@@ -90,6 +91,7 @@ import { mdiHeart } from "@mdi/js";
 import { useAuthStore } from "../store/auth";
 import { useTeacherStore } from "../store/teachers";
 import { useFavoriteStore } from "../store/favorite";
+import Loading from "../components/Loading.vue";
 
 // initialize values
 const route = useRoute();
@@ -107,6 +109,7 @@ const userId = ref("");
 const iconType = "mdi";
 const iconPath = ref(mdiHeart);
 const error = ref(null);
+const isLoading = ref(true);
 
 const standardTimes = ref([
   { formattedDateTime: "Monday 4:45 PM" },
@@ -125,20 +128,27 @@ const availableTimes = ref([]);
 
 // get data from store
 onMounted(async () => {
-  authStore.initialize();
-  userId.value = authStore.user.userId;
+  try {
+    authStore.initialize();
+    userId.value = authStore.user.userId;
 
-  // fetch selected teacher when component is mounted
-  await teacherStore.fetchTeacherById(route.params.id);
-  teacher.value = teacherStore.selectedTeacher;
+    // fetch selected teacher when component is mounted
+    await teacherStore.fetchTeacherById(route.params.id);
+    teacher.value = teacherStore.selectedTeacher;
 
-  // Fetch booked times for the specific teacher and store them in the bookedTimes array
-  bookedTimes.value = await teacherStore.fetchBookedTimes(route.params.id);
+    // Fetch booked times for the specific teacher and store them in the bookedTimes array
+    bookedTimes.value = await teacherStore.fetchBookedTimes(route.params.id);
 
-  // Calculate available times by filtering out booked times
-  availableTimes.value = standardTimes.value.filter(
-    (time) => !bookedTimes.value.includes(time.formattedDateTime)
-  );
+    // Calculate available times by filtering out booked times
+    availableTimes.value = standardTimes.value.filter(
+      (time) => !bookedTimes.value.includes(time.formattedDateTime)
+    );
+  } catch (error) {
+    console.error("Error fetching teacher details:", error);
+    router.push("/error");
+  } finally {
+    isLoading.value = false;
+  }
 });
 
 // toggle favorite teachers
