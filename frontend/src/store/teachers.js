@@ -39,7 +39,18 @@ export const useTeacherStore = defineStore("teachers", {
       this.error = null;
 
       try {
-        const response = await axios.get(`${BASE_URL}/teachers/${teacherId}`);
+        const token = localStorage.getItem("token");
+        console.log({ token });
+
+        if (!token) {
+          throw new Error("Token is missing");
+        }
+
+        const response = await axios.get(`${BASE_URL}/teachers/${teacherId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
 
         if (response.status !== 200) {
           this.isLoading = false;
@@ -57,8 +68,20 @@ export const useTeacherStore = defineStore("teachers", {
 
     async fetchBookedTimes(teacherId) {
       try {
+        const token = localStorage.getItem("token");
+        console.log({ token });
+
+        if (!token) {
+          throw new Error("Token is missing");
+        }
+
         const response = await axios.get(
-          `${BASE_URL}/bookings/teacher/${teacherId}`
+          `${BASE_URL}/bookings/teacher/${teacherId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (response.status !== 200) {
@@ -70,16 +93,28 @@ export const useTeacherStore = defineStore("teachers", {
         }
       } catch (err) {
         console.error("Error fetching booked times:", err);
+        this.error = "An error occurred while fetching booked times.";
+        this.isLoading = false;
         return [];
       }
     },
 
     async bookClass(teacherId, userId, selectedTime) {
       try {
+        const token = localStorage.getItem("token");
+        console.log({ token });
+
+        if (!token) {
+          throw new Error("Token is missing");
+        }
+
         const response = await axios.post(`${BASE_URL}/bookings`, {
           teacherId,
           userId,
           selectedTime: selectedTime.formattedDateTime,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         });
         console.log({ response });
 

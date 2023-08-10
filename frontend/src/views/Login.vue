@@ -1,12 +1,8 @@
 <template>
   <div class="text-center">
-    <h1 class="mb-4 mt-12 text-4xl font-bold">
-      Do you want to become a teacher on SpeakVue?
+    <h1 class="mb-12 mt-12 text-4xl font-bold">
+      Login to continue your learning journey! 🥳
     </h1>
-    <p class="mb-12 text-lg">
-      Complete the teacher application below. Once you are accepted, students
-      will be able to find you!
-    </p>
   </div>
   <div>
     <form

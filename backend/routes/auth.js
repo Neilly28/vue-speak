@@ -22,9 +22,16 @@ router.post("/signup", async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, salt);
     const newUser = new User({ username, password: hashedPassword });
 
-    // return the user to the client
+    // save the new user to db
     const savedUser = await newUser.save();
-    res.status(201).json(savedUser);
+
+    // generate jwt for new user
+    const token = jwt.sign({ id: savedUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "3d",
+    });
+
+    // Return the user and the token to the client
+    res.status(201).json({ user: savedUser, token });
   } catch (err) {
     console.log("hello from new user");
     res.status(500).json({ error: err.message });
@@ -49,8 +56,12 @@ router.post("/login", async (req, res) => {
       return res.status(400).json({ message: "Invalid credentials" });
     }
 
+    // generate jwt for new user
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "3d",
+    });
+
     // send back token and userid to client
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
     res.status(200).json({
       token,
       userId: user._id,

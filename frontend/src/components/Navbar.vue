@@ -3,7 +3,7 @@
     <div class="mb-24 mt-12 flex items-center justify-between font-bold">
       <!-- FOR ALL USERS -->
       <router-link class="transition-all ease-in hover:text-cyan-400" to="/"
-        >🏡Home</router-link
+        >🏡 Home</router-link
       >
       <!-- <router-link
         class="transition-all ease-in hover:text-cyan-400"
@@ -31,15 +31,15 @@
 
       <!-- FOR LOGGED OUT USERS -->
       <div v-if="!user">
-        <router-link
+        <!-- <router-link
           class="transition-all ease-in hover:text-cyan-400"
           to="/login"
           >Login</router-link
-        >
+        > -->
         <router-link
           class="transition-all ease-in hover:text-cyan-400"
           to="/signup"
-          >Sign Up</router-link
+          >👋🏻 Sign Up</router-link
         >
       </div>
 
@@ -48,8 +48,8 @@
         class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
         href="https://github.com/Neilly28/vue-restaurant"
         target="_blank"
-        >GitHub<svg-icon type="mdi" :path="path"
-      /></a>
+        ><svg-icon type="mdi" :path="path" />GitHub</a
+      >
     </div>
   </nav>
 </template>

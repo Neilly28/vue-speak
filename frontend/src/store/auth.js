@@ -26,6 +26,7 @@ export const useAuthStore = defineStore("auth", {
           this.isLoading = false;
           this.error = response.data.message;
         } else {
+          localStorage.setItem("token", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data));
           this.user = response.data;
           this.isLoading = false;
@@ -53,6 +54,7 @@ export const useAuthStore = defineStore("auth", {
           this.isLoading = false;
           this.error = response.data.message;
         } else {
+          localStorage.setItem("token", response.data.token);
           localStorage.setItem("user", JSON.stringify(response.data));
           this.user = response.data;
           this.isLoading = false;
@@ -67,6 +69,7 @@ export const useAuthStore = defineStore("auth", {
 
     logout() {
       this.user = null;
+      localStorage.removeItem("token");
       localStorage.removeItem("user");
     },
 
