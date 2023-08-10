@@ -111,7 +111,6 @@
           </button>
         </div>
       </router-link>
-      {{ favoriteStore.favorites }}
     </div>
   </div>
 </template>
@@ -120,65 +119,63 @@
 // imports
 import { onMounted, ref } from "vue";
 import { useAuthStore } from "../store/auth";
-import { useUserStore } from "../store/user";
-// import { useTeacherStore } from "../store/teachers";
 import { useBookingStore } from "../store/booking";
 import { useFavoriteStore } from "../store/favorite";
+import router from "@/router/router";
 
 // refs
 const username = ref("");
-const userId = ref("");
-const fetchedUser = ref(null);
 const teachers = ref([]);
 const bookings = ref([]);
 
 // initialize instance
 const authStore = useAuthStore();
-const userStore = useUserStore();
-// const teacherStore = useTeacherStore();
 const bookingStore = useBookingStore();
 const favoriteStore = useFavoriteStore();
 
-// get user from localstorage
 onMounted(async () => {
   authStore.initialize();
   username.value = authStore.user.username;
-  userId.value = authStore.user.userId;
-  await userStore.fetchUser(userId.value);
-  fetchedUser.value = userStore.user;
 
-  // Fetch bookings
-  await bookingStore.fetchBookings(userId.value);
-  bookings.value = bookingStore.bookings;
+  try {
+    const userIdValue = authStore.user.userId;
+    // Fetch data concurrently using Promise.all
+    await Promise.all([
+      bookingStore.fetchBookings(userIdValue),
+      favoriteStore.fetchFavorites(userIdValue),
+    ]);
 
-  // Fetch favorites
-  // await Promise.all(
-  //   fetchedUser.value.favorites.map(async (teacherId) => {
-  //     await teacherStore.fetchTeacherById(teacherId);
-  //     teachers.value.push(teacherStore.selectedTeacher);
-  //   })
-  // );
-
-  // fetch favorites
-  await favoriteStore.fetchFavorites(userId.value);
-  teachers.value = favoriteStore.favorites;
+    if (!bookingStore.error && !favoriteStore.error) {
+      bookings.value = bookingStore.bookings;
+      teachers.value = favoriteStore.favorites;
+    } else {
+      console.error(
+        "Error fetching bookings:",
+        bookingStore.error,
+        favoriteStore.error
+      );
+      router.push("/error");
+    }
+  } catch (error) {
+    console.error("Error fetching bookings:", error);
+    router.push("/error");
+  }
 });
 
 const handleCancelBooking = async (bookingId) => {
   try {
-    const response = await fetch(
-      `http://localhost:5000/api/bookings/${bookingId}`,
-      {
-        method: "DELETE",
-      }
-    );
-    if (response.ok) {
+    await bookingStore.deleteBooking(bookingId);
+    if (!bookingStore.error) {
       bookings.value = bookings.value.filter(
         (booking) => booking._id !== bookingId
       );
+    } else {
+      console.error("Error cancelling booking:", bookingStore.error);
+      router.push("/error");
     }
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.error("Error cancelling booking:", err);
+    router.push("/error");
   }
 };
 </script>

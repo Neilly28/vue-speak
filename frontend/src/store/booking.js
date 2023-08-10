@@ -28,7 +28,29 @@ export const useBookingStore = defineStore("booking", {
         }
       } catch (err) {
         console.error("Error fetching bookings:", err);
-        this.error = err.response.data.message;
+        this.error = err.message;
+        this.isLoading = false;
+      }
+    },
+
+    async deleteBooking(bookingId) {
+      this.isLoading = true;
+      this.error = null;
+
+      try {
+        const response = await axios.delete(
+          `${BASE_URL}/bookings/${bookingId}`
+        );
+
+        if (response.status !== 200) {
+          this.isLoading = false;
+          this.error = "Failed to cancel booking.";
+        } else {
+          this.isLoading = false;
+        }
+      } catch (err) {
+        console.error("Error cancelling booking:", err);
+        this.error = err.message;
         this.isLoading = false;
       }
     },
