@@ -1,7 +1,6 @@
 <template>
   <nav>
     <div class="mb-24 mt-12 flex items-center justify-between font-bold">
-      <!-- FOR ALL USERS -->
       <router-link class="transition-all ease-in hover:text-cyan-400" to="/"
         >🏡 Home</router-link
       >
@@ -11,45 +10,44 @@
         >💪🏻Become A Teacher</router-link
       > -->
 
-      <!-- FOR LOGGED IN USERS -->
-      <div v-if="user">
-        <router-link
-          class="transition-all ease-in hover:text-cyan-400"
-          to="/user"
-          >👋🏻Hello, {{ user.username }}</router-link
-        >
-      </div>
-
-      <div v-if="user">
-        <button
-          class="transition-all ease-in hover:text-cyan-400"
-          @click="handleLogout"
-        >
-          Logout
-        </button>
-      </div>
-
       <!-- FOR LOGGED OUT USERS -->
-      <div v-if="!user">
-        <!-- <router-link
-          class="transition-all ease-in hover:text-cyan-400"
-          to="/login"
-          >Login</router-link
-        > -->
-        <router-link
-          class="transition-all ease-in hover:text-cyan-400"
-          to="/signup"
-          >👋🏻 Sign Up</router-link
+      <div class="flex items-center justify-evenly gap-12">
+        <div class="flex items-center justify-evenly gap-12" v-if="!user">
+          <router-link
+            class="transition-all ease-in hover:text-cyan-400"
+            to="/login"
+            >😊 Login</router-link
+          >
+          <router-link
+            class="transition-all ease-in hover:text-cyan-400"
+            to="/signup"
+            >👋🏻 Sign Up</router-link
+          >
+        </div>
+
+        <!-- FOR LOGGED IN USERS -->
+        <div class="flex items-center justify-evenly gap-12" v-else>
+          <router-link
+            class="transition-all ease-in hover:text-cyan-400"
+            to="/user"
+            >👋🏻Hello, {{ user.username }}</router-link
+          >
+          <button
+            class="transition-all ease-in hover:text-cyan-400"
+            @click="handleLogout"
+          >
+            🥲 Logout
+          </button>
+        </div>
+
+        <!-- GitHub -->
+        <a
+          class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
+          href="https://github.com/Neilly28/vue-restaurant"
+          target="_blank"
+          ><svg-icon type="mdi" :path="path" />GitHub</a
         >
       </div>
-
-      <!-- GitHub -->
-      <a
-        class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
-        href="https://github.com/Neilly28/vue-restaurant"
-        target="_blank"
-        ><svg-icon type="mdi" :path="path" />GitHub</a
-      >
     </div>
   </nav>
 </template>

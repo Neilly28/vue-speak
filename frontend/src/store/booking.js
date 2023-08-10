@@ -17,7 +17,21 @@ export const useBookingStore = defineStore("booking", {
       this.error = null;
 
       try {
-        const response = await axios.get(`${BASE_URL}/bookings/user/${userId}`);
+        const token = localStorage.getItem("token");
+        console.log({ token });
+
+        if (!token) {
+          throw new Error("Token is missing");
+        }
+
+        const response = await axios.get(
+          `${BASE_URL}/bookings/user/${userId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         if (response.status !== 200) {
           this.isLoading = false;
@@ -38,8 +52,20 @@ export const useBookingStore = defineStore("booking", {
       this.error = null;
 
       try {
+        const token = localStorage.getItem("token");
+        console.log({ token });
+
+        if (!token) {
+          throw new Error("Token is missing");
+        }
+
         const response = await axios.delete(
-          `${BASE_URL}/bookings/${bookingId}`
+          `${BASE_URL}/bookings/${bookingId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
         if (response.status !== 200) {
