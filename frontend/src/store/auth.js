@@ -1,11 +1,12 @@
 import { defineStore } from "pinia";
+import axios from "axios";
+import { BASE_URL } from "../../config/api";
 
 export const useAuthStore = defineStore("auth", {
   // initial states
   state: () => ({
     user: null,
-    loginError: null,
-    signupError: null,
+    error: null,
     isLoading: true,
   }),
 
@@ -13,33 +14,26 @@ export const useAuthStore = defineStore("auth", {
   actions: {
     async signUp(username, password) {
       this.isLoading = true;
-      this.signupError = null;
+      this.error = null;
+
       try {
-        const response = await fetch("http://localhost:5000/api/auth/signup", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
+        const response = await axios.post(`${BASE_URL}/auth/signup`, {
+          username,
+          password,
         });
-        console.log({ response });
 
-        const data = await response.json();
-        console.log({ data });
-
-        if (!response.ok) {
+        if (response.status !== 201) {
           this.isLoading = false;
-          this.signupError = data.message;
-        }
-
-        if (response.ok) {
-          localStorage.setItem("user", JSON.stringify(data));
-          this.user = data;
+          this.error = response.data.message;
+        } else {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          this.user = response.data;
           this.isLoading = false;
+          return response;
         }
       } catch (err) {
-        console.error("Login error:", err);
-        this.loginError = "An error occurred during login.";
+        console.error("Error signing up:", err);
+        this.error = err.response.data.message;
         this.isLoading = false;
       }
     },
@@ -48,7 +42,7 @@ export const useAuthStore = defineStore("auth", {
       this.isLoading = true;
       this.loginError = null;
       try {
-        const response = await fetch("http://localhost:5000/api/auth/login", {
+        const response = await fetch(`${BASE_URL}/auth/login`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
