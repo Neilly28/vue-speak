@@ -11,8 +11,16 @@ import { createRouter, createWebHistory } from "vue-router";
 
 const isLoggedIn = (to, from, next) => {
   const authStore = useAuthStore();
-  console.log(authStore.user);
   if (authStore.user) {
+    next({ name: "Home" }); // Redirect to home page if user is already authenticated
+  } else {
+    next(); // Allow navigation to the login route
+  }
+};
+
+const isNotLoggedIn = (to, from, next) => {
+  const authStore = useAuthStore();
+  if (!authStore.user) {
     next({ name: "Home" }); // Redirect to home page if user is already authenticated
   } else {
     next(); // Allow navigation to the login route
@@ -55,12 +63,21 @@ const routes = [
         path: "/user",
         name: "UserProfile",
         component: UserProfile,
+        beforeEnter: isNotLoggedIn,
       },
       {
         path: "/teacher/:id",
         name: "TeacherDetails",
         component: TeacherDetails,
         props: true,
+        beforeEnter: (to, from, next) => {
+          const authStore = useAuthStore();
+          if (authStore.user) {
+            next();
+          } else {
+            next({ name: "SignUp" });
+          }
+        },
       },
     ],
   },

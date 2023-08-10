@@ -43,7 +43,7 @@
         <!-- GitHub -->
         <a
           class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
-          href="https://github.com/Neilly28/vue-restaurant"
+          href="https://github.com/Neilly28/vue-speak"
           target="_blank"
           ><svg-icon type="mdi" :path="path" />GitHub</a
         >
