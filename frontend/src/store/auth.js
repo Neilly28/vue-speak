@@ -40,32 +40,27 @@ export const useAuthStore = defineStore("auth", {
 
     async login(username, password) {
       this.isLoading = true;
-      this.loginError = null;
+      this.error = null;
+
       try {
-        const response = await fetch(`${BASE_URL}/auth/login`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ username, password }),
+        const response = await axios.post(`${BASE_URL}/auth/login`, {
+          username,
+          password,
         });
+        console.log({ response });
 
-        const data = await response.json();
-        console.log({ data });
-
-        if (!response.ok) {
+        if (response.status !== 200) {
           this.isLoading = false;
-          this.loginError = data.message;
-        }
-
-        if (response.ok) {
-          localStorage.setItem("user", JSON.stringify(data));
-          this.user = data;
+          this.error = response.data.message;
+        } else {
+          localStorage.setItem("user", JSON.stringify(response.data));
+          this.user = response.data;
           this.isLoading = false;
+          return response;
         }
       } catch (err) {
-        console.error("Login error:", err);
-        this.loginError = "An error occurred during login.";
+        console.error("Error logging in:", err);
+        this.error = err.response.data.message;
         this.isLoading = false;
       }
     },

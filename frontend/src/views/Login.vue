@@ -22,8 +22,14 @@
           required
         />
       </div>
-      <button>Login</button>
-      <div v-if="error">{{ error }}</div>
+      <button
+        type="submit"
+        :disabled="!username || !password || authStore.isLoading"
+        class="cursor-pointer rounded-full bg-cyan-200 px-4 py-2 font-bold text-cyan-800 transition-all hover:bg-cyan-300 disabled:bg-slate-400 disabled:text-slate-100"
+      >
+        Login
+      </button>
+      <div v-if="error" class="text-2xl text-red-500">{{ error }}</div>
     </div>
   </form>
 </template>
@@ -40,20 +46,13 @@ const router = useRouter();
 // import store
 import { useAuthStore } from "../store/auth";
 const authStore = useAuthStore();
-console.log(authStore);
 
 const handleLogin = async () => {
-  try {
-    await authStore.login(username.value, password.value);
-    if (!authStore.loginError) {
-      router.push("/");
-    } else {
-      console.error("error!");
-      error.value = authStore.loginError;
-    }
-  } catch (err) {
-    console.error(err);
-    error.value = authStore.loginError;
+  await authStore.login(username.value, password.value);
+  if (!authStore.error) {
+    router.push("/");
+  } else {
+    error.value = authStore.error;
   }
 };
 </script>

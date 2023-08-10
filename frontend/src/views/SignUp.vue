@@ -49,7 +49,6 @@ const router = useRouter();
 // import store
 import { useAuthStore } from "../store/auth";
 const authStore = useAuthStore();
-console.log(authStore);
 
 const handleSignUp = async () => {
   await authStore.signUp(username.value, password.value);
