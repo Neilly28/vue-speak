@@ -1,9 +1,12 @@
 <template>
   <Loading v-if="isLoading" />
   <template v-else>
-    <div>
-      <h1 v-if="bookings.length > 0" class="mb-4 mt-12 text-2xl font-bold">
-        My Upcoming classes
+    <div class="mb-24">
+      <h1 class="mb-4 mt-12 text-2xl font-bold" v-if="bookings.length > 0">
+        My Upcoming classes 😎
+      </h1>
+      <h1 class="mb-4 mt-12 text-2xl font-bold" v-if="bookings.length === 0">
+        You don't have any upcoming classes 😔
       </h1>
 
       <div class="mt-12 grid grid-cols-3 gap-12">
@@ -59,11 +62,10 @@
     </div>
 
     <h1 class="mb-4 mt-12 text-2xl font-bold" v-if="teachers.length > 0">
-      Hey there, {{ username }} 👋🏻 Book a class with one of your favorite
-      teachers below! 💖
+      Book a class with one of your favorite teachers below! 💖
     </h1>
     <h1 class="mb-4 mt-12 text-2xl font-bold" v-if="teachers.length === 0">
-      Hey there, {{ username }} 👋🏻 You have not saved any teachers yet 😔
+      You don't have any favorite teachers yet 😔
     </h1>
 
     <div class="mt-12 grid grid-cols-3 gap-12">
