@@ -79,7 +79,7 @@ onMounted(async () => {
 const handleLogout = () => {
   authStore.logout();
   if (!authStore.error) {
-    router.push("/");
+    router.push("/login");
   } else {
     router.push("/error");
   }

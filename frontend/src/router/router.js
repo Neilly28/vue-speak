@@ -1,5 +1,4 @@
 import DefaultLayout from "@/components/DefaultLayout.vue";
-import Home from "../views/Home.vue";
 import SignUp from "../views/SignUp.vue";
 import Login from "../views/Login.vue";
 import UserProfile from "../views/UserProfile.vue";
@@ -8,17 +7,14 @@ import TeacherDetails from "../views/TeacherDetails.vue";
 import Error from "../views/Error.vue";
 import { useAuthStore } from "@/store/auth";
 import { createRouter, createWebHistory } from "vue-router";
+import Home from "@/views/Home.vue";
+import NotFound from "../views/NotFound.vue";
 
 const routes = [
   {
     path: "/",
     component: DefaultLayout,
     children: [
-      {
-        path: "/error",
-        name: "Error",
-        component: Error,
-      },
       {
         path: "/",
         name: "Home",
@@ -55,6 +51,17 @@ const routes = [
         meta: {
           needsAuth: true,
         },
+      },
+      {
+        path: "/error",
+        name: "Error",
+        component: Error,
+        redirect: "/",
+      },
+      {
+        path: "/:catchAll(.*)",
+        name: "NotFound",
+        component: NotFound,
       },
     ],
   },
