@@ -1,4 +1,4 @@
-# Foobar
+# VueSpeak
 
 VueSpeak is a personal full-stack web application project that connects language learners with experienced teachers. Built using Vue.js, Node.js Express, and MongoDB.
 
