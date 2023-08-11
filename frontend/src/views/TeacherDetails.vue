@@ -34,7 +34,7 @@
       </div>
 
       <!-- CTA SECTION -->
-      <div class="flex items-center justify-evenly gap-8">
+      <div class="flex flex-col items-center justify-evenly gap-8 sm:flex-row">
         <div class="flex items-center justify-center gap-4">
           <div>
             <p class="text-left text-sm text-slate-400">Trial from</p>
@@ -51,7 +51,9 @@
         </div>
 
         <!-- TIME SELECTION -->
-        <div class="flex items-center justify-center gap-4">
+        <div
+          class="flex flex-col items-center justify-center gap-4 sm:flex-row"
+        >
           <select
             v-model="selectedTime"
             class="cursor-pointer rounded-full border p-2"

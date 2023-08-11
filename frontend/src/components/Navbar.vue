@@ -2,8 +2,9 @@
   <nav>
     <div class="mb-24 mt-12 flex items-center justify-between font-bold">
       <router-link class="transition-all ease-in hover:text-cyan-400" to="/"
-        >🏡 Home</router-link
-      >
+        >🏡
+        <span>Home</span>
+      </router-link>
       <!-- <router-link
         class="transition-all ease-in hover:text-cyan-400"
         to="/apply"
@@ -16,12 +17,12 @@
           <router-link
             class="transition-all ease-in hover:text-cyan-400"
             to="/login"
-            >😊 Login</router-link
+            >😊 <span>Login</span></router-link
           >
           <router-link
             class="transition-all ease-in hover:text-cyan-400"
             to="/signup"
-            >👋🏻 Sign Up</router-link
+            >👋🏻 <span>Sign Up</span></router-link
           >
         </div>
 
@@ -45,8 +46,9 @@
           class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
           href="https://github.com/Neilly28/vue-speak"
           target="_blank"
-          ><svg-icon type="mdi" :path="path" />GitHub</a
-        >
+          ><svg-icon type="mdi" :path="path" />
+          <span>GitHub</span>
+        </a>
       </div>
     </div>
   </nav>

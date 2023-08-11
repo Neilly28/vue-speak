@@ -9,7 +9,7 @@
         You don't have any upcoming classes 😔
       </h1>
 
-      <div class="mt-12 grid grid-cols-3 gap-12">
+      <div class="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-3">
         <div
           v-for="booking in bookings"
           :key="booking._id"
@@ -68,7 +68,7 @@
       You don't have any favorite teachers yet 😔
     </h1>
 
-    <div class="mt-12 grid grid-cols-3 gap-12">
+    <div class="mt-12 grid grid-cols-1 gap-12 sm:grid-cols-2 md:grid-cols-3">
       <div v-for="teacher in teachers" :key="teacher.id">
         <router-link
           :to="{
