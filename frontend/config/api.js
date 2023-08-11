@@ -1,1 +1,1 @@
-export const BASE_URL = "https://stormy-frock-ox.cyclic.app/";
+export const BASE_URL = "https://stormy-frock-ox.cyclic.app/api";
