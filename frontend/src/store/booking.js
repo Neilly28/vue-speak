@@ -18,7 +18,6 @@ export const useBookingStore = defineStore("booking", {
 
       try {
         const token = localStorage.getItem("token");
-        console.log({ token });
 
         if (!token) {
           throw new Error("Token is missing");
@@ -53,7 +52,6 @@ export const useBookingStore = defineStore("booking", {
 
       try {
         const token = localStorage.getItem("token");
-        console.log({ token });
 
         if (!token) {
           throw new Error("Token is missing");

@@ -19,9 +19,6 @@ export const useFavoriteStore = defineStore("favorite", {
       try {
         const response = await axios.get(`${BASE_URL}/favorites/${userId}`);
         const data = response.data.map((teacher) => teacher.teacher);
-        // console.log(
-        //   data.map((item) => item._id).includes("64ceb69345adaa26699a5e33")
-        // );
 
         if (response.status !== 200) {
           this.isLoading = false;
@@ -39,10 +36,9 @@ export const useFavoriteStore = defineStore("favorite", {
 
     async toggleFavorite(userId, teacherId) {
       try {
-        const response = await axios.put(
+        await axios.put(
           `${BASE_URL}/favorites/${userId}/toggleFavorite/${teacherId}`
         );
-        console.log(response);
       } catch (err) {
         console.error("Error toggling favorite:", err);
       }

@@ -16,7 +16,6 @@
             :to="{
               name: 'TeacherDetails',
               params: { id: booking.teacher._id },
-              props: { teacher },
             }"
             class="flex gap-4"
           >
@@ -140,12 +139,11 @@ const favoriteStore = useFavoriteStore();
 const router = useRouter();
 
 onMounted(async () => {
-  authStore.initialize();
   username.value = authStore.user.username;
 
   try {
     const userIdValue = authStore.user.userId;
-    // Fetch data concurrently using Promise.all
+
     await Promise.all([
       bookingStore.fetchBookings(userIdValue),
       favoriteStore.fetchFavorites(userIdValue),

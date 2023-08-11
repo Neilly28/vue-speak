@@ -129,7 +129,6 @@ const availableTimes = ref([]);
 // get data from store
 onMounted(async () => {
   try {
-    authStore.initialize();
     userId.value = authStore.user.userId;
 
     // fetch selected teacher when component is mounted

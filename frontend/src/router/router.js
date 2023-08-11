@@ -9,24 +9,6 @@ import Error from "../views/Error.vue";
 import { useAuthStore } from "@/store/auth";
 import { createRouter, createWebHistory } from "vue-router";
 
-const isLoggedIn = (to, from, next) => {
-  const authStore = useAuthStore();
-  if (authStore.user) {
-    next({ name: "Home" }); // Redirect to home page if user is already authenticated
-  } else {
-    next(); // Allow navigation to the login route
-  }
-};
-
-const isNotLoggedIn = (to, from, next) => {
-  const authStore = useAuthStore();
-  if (!authStore.user) {
-    next({ name: "Home" }); // Redirect to home page if user is already authenticated
-  } else {
-    next(); // Allow navigation to the login route
-  }
-};
-
 const routes = [
   {
     path: "/",
@@ -46,13 +28,11 @@ const routes = [
         path: "/signup",
         name: "SignUp",
         component: SignUp,
-        beforeEnter: isLoggedIn,
       },
       {
         path: "/login",
         name: "Login",
         component: Login,
-        beforeEnter: isLoggedIn,
       },
       // {
       //   path: "/apply",
@@ -63,20 +43,17 @@ const routes = [
         path: "/user",
         name: "UserProfile",
         component: UserProfile,
-        beforeEnter: isNotLoggedIn,
+        meta: {
+          needsAuth: true,
+        },
       },
       {
         path: "/teacher/:id",
         name: "TeacherDetails",
         component: TeacherDetails,
         props: true,
-        beforeEnter: (to, from, next) => {
-          const authStore = useAuthStore();
-          if (authStore.user) {
-            next();
-          } else {
-            next({ name: "SignUp" });
-          }
+        meta: {
+          needsAuth: true,
         },
       },
     ],
@@ -88,11 +65,21 @@ const router = createRouter({
   routes,
 });
 
-// In your router.js file
 router.beforeEach((to, from, next) => {
   const authStore = useAuthStore();
-  authStore.initialize(); // Call the initialize action before each route navigation
-  next();
+  authStore.initialize();
+
+  const isAuthenticated = authStore.user;
+  const requiresAuth = to.meta.needsAuth;
+
+  if (
+    (isAuthenticated && (to.name === "Login" || to.name === "SignUp")) ||
+    (!isAuthenticated && requiresAuth)
+  ) {
+    next(isAuthenticated ? "/" : "/login");
+  } else {
+    next();
+  }
 });
 
 export default router;

@@ -50,6 +50,7 @@
       </div>
     </div>
   </nav>
+  {{ user }}
 </template>
 
 <script setup>
@@ -71,7 +72,6 @@ const authStore = useAuthStore();
 
 // get user from localstorage
 onMounted(() => {
-  authStore.initialize();
   user.value = authStore.user;
 });
 

@@ -1,54 +1,54 @@
 <template>
   <div>
     <div class="text-center">
-      <h1 class="text-4xl font-bold mt-12 mb-4">
+      <h1 class="mb-4 mt-12 text-4xl font-bold">
         Do you want to become a teacher on SpeakVue?
       </h1>
-      <p class="text-lg mb-12">
+      <p class="mb-12 text-lg">
         Complete the teacher application below. Once you are accepted, students
         will be able to find you!
       </p>
     </div>
     <div>
       <form
-        class="w-96 m-auto flex flex-col items-center justify-evenly shadow-md px-6 pt-12 pb-6 text-center rounded-3xl bg-white"
+        class="m-auto flex w-96 flex-col items-center justify-evenly rounded-3xl bg-white px-6 pb-6 pt-12 text-center shadow-md"
         @submit.prevent="handleSubmit"
       >
-        <div class="flex flex-col gap-6 justify-center">
-          <div class="flex flex-col text-left gap-2">
+        <div class="flex flex-col justify-center gap-6">
+          <div class="flex flex-col gap-2 text-left">
             <label for="">Name</label>
             <input
-              class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer"
+              class="cursor-pointer rounded-full bg-slate-100 px-4 py-2"
               type="text"
               required
               placeholder="John Doe"
               v-model="teacher.name"
             />
           </div>
-          <div class="flex flex-col text-left gap-2">
+          <div class="flex flex-col gap-2 text-left">
             <label for="">E-mail</label>
             <input
-              class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer"
+              class="cursor-pointer rounded-full bg-slate-100 px-4 py-2"
               type="email"
               required
               placeholder="johndoe@email.com"
               v-model="teacher.email"
             />
           </div>
-          <div class="flex flex-col text-left gap-2">
+          <div class="flex flex-col gap-2 text-left">
             <label for="">Hourly rate in EUR</label>
             <input
-              class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer w-24"
+              class="w-24 cursor-pointer rounded-full bg-slate-100 px-4 py-2"
               type="number"
               required
               placeholder="9.99"
               v-model="teacher.price"
             />
           </div>
-          <div class="flex flex-col text-left gap-2">
+          <div class="flex flex-col gap-2 text-left">
             <label for="">What language would you want to teach?</label>
             <select
-              class="bg-slate-100 px-4 py-2 rounded-full cursor-pointer w-48"
+              class="w-48 cursor-pointer rounded-full bg-slate-100 px-4 py-2"
               required
               name=""
               id=""
@@ -62,7 +62,7 @@
         </div>
 
         <button
-          class="mt-12 border-transparent px-4 py-1 rounded-3xl font-semibold text-cyan-800 bg-cyan-200 hover:bg-cyan-400 transition-all"
+          class="mt-12 rounded-3xl border-transparent bg-cyan-200 px-4 py-1 font-semibold text-cyan-800 transition-all hover:bg-cyan-400"
         >
           Submit Application
         </button>
@@ -92,7 +92,7 @@ const handleSubmit = async () => {
       language: teacher.value.language,
       price: teacher.value.price,
     });
-    console.log({ response });
+
     if (response.status === 201) {
       router.push("/");
     }

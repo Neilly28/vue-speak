@@ -40,7 +40,6 @@ export const useTeacherStore = defineStore("teachers", {
 
       try {
         const token = localStorage.getItem("token");
-        console.log({ token });
 
         if (!token) {
           throw new Error("Token is missing");
@@ -69,7 +68,6 @@ export const useTeacherStore = defineStore("teachers", {
     async fetchBookedTimes(teacherId) {
       try {
         const token = localStorage.getItem("token");
-        console.log({ token });
 
         if (!token) {
           throw new Error("Token is missing");
@@ -102,7 +100,6 @@ export const useTeacherStore = defineStore("teachers", {
     async bookClass(teacherId, userId, selectedTime) {
       try {
         const token = localStorage.getItem("token");
-        console.log({ token });
 
         if (!token) {
           throw new Error("Token is missing");
@@ -116,7 +113,6 @@ export const useTeacherStore = defineStore("teachers", {
             Authorization: `Bearer ${token}`,
           },
         });
-        console.log({ response });
 
         if (response.status !== 201) {
           this.isLoading = false;

@@ -48,7 +48,6 @@ export const useAuthStore = defineStore("auth", {
           username,
           password,
         });
-        console.log({ response });
 
         if (response.status !== 200) {
           this.isLoading = false;
