@@ -7,7 +7,7 @@
           params: { id: teacher._id },
           props: { teacher },
         }"
-        class="group flex h-80 cursor-pointer flex-col items-start justify-evenly gap-4 rounded-3xl bg-white p-6 shadow-md transition-all duration-300 ease-in-out hover:scale-105"
+        class="group flex h-80 cursor-pointer flex-col items-start justify-evenly gap-4 rounded-3xl bg-white p-6 shadow-md transition-all duration-300 ease-in-out sm:hover:scale-105"
       >
         <div class="flex gap-4">
           <img class="w-24 rounded-full" :src="teacher.image" alt="" />
@@ -39,7 +39,7 @@
           </div>
 
           <button
-            class="cursor-pointer rounded-full bg-cyan-200 px-4 py-2 font-bold text-cyan-800 opacity-0 duration-300 ease-in-out hover:bg-cyan-300 group-hover:opacity-100"
+            class="cursor-pointer rounded-full bg-cyan-200 px-4 py-2 font-bold text-cyan-800 opacity-100 duration-300 ease-in-out hover:bg-cyan-300 sm:opacity-0 sm:group-hover:opacity-100"
           >
             Book a class
           </button>

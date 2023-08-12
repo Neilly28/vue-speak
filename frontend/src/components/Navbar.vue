@@ -3,8 +3,11 @@
     <div
       class="mb-24 mt-12 flex items-center justify-between text-4xl font-bold sm:text-base"
     >
-      <router-link class="transition-all ease-in hover:text-cyan-400" to="/"
-        >🏡
+      <router-link
+        class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
+        to="/"
+      >
+        <Icon icon="ic:baseline-home" width="24" />
         <span class="hidden sm:block">Home</span>
       </router-link>
       <!-- <router-link
@@ -17,29 +20,42 @@
       <div class="flex items-center justify-evenly gap-12">
         <div class="flex items-center justify-evenly gap-12" v-if="!user">
           <router-link
-            class="transition-all ease-in hover:text-cyan-400"
+            class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
             to="/login"
-            >😊 <span class="hidden sm:block">Login</span></router-link
+          >
+            <Icon icon="ic:baseline-person" width="24" />
+            <span class="hidden sm:block">Login</span></router-link
           >
           <router-link
-            class="transition-all ease-in hover:text-cyan-400"
+            class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
             to="/signup"
-            >👋🏻 <span class="hidden sm:block">Sign Up</span></router-link
+          >
+            <Icon icon="ic:baseline-person-add-alt-1" width="24" />
+            <span class="hidden sm:block">Sign Up</span></router-link
           >
         </div>
 
         <!-- FOR LOGGED IN USERS -->
         <div class="flex items-center justify-evenly gap-12" v-else>
           <router-link
-            class="transition-all ease-in hover:text-cyan-400"
+            class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
             to="/user"
-            >👋🏻 <span class="hidden sm:block"> Hello, {{ user.username }}</span>
+          >
+            <Icon icon="ic:baseline-account-circle" width="24" />
+            <span
+              class="flex hidden items-center justify-center gap-2 sm:block"
+            >
+              Hello, {{ user.username }}</span
+            >
           </router-link>
           <button
-            class="transition-all ease-in hover:text-cyan-400"
+            class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
             @click="handleLogout"
           >
-            🥲 <span class="hidden sm:block">Logout</span>
+            <Icon icon="ic:outline-person-remove-alt-1" width="24" />
+            <span class="flex hidden items-center justify-center gap-2 sm:block"
+              >Logout</span
+            >
           </button>
         </div>
 
@@ -48,7 +64,7 @@
           class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
           href="https://github.com/Neilly28/vue-speak"
           target="_blank"
-          ><svg-icon type="mdi" :path="path" />
+          ><svg-icon type="mdi" :path="path" width="24" />
           <span class="hidden sm:block">GitHub</span>
         </a>
       </div>
@@ -63,6 +79,8 @@ const path = ref(mdiGithub);
 import { ref } from "vue";
 import { useRouter } from "vue-router";
 import { onMounted, watch } from "vue";
+
+import { Icon } from "@iconify/vue";
 
 const user = ref("");
 const router = useRouter();
