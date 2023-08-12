@@ -2,7 +2,7 @@
   <Loading v-if="isLoading" />
   <div v-else>
     <div
-      class="group m-auto flex max-w-2xl cursor-pointer flex-col items-start justify-around gap-6 rounded-3xl bg-white p-12 shadow-md"
+      class="group m-auto flex max-w-2xl cursor-pointer flex-col items-start justify-around gap-6 rounded-3xl bg-white p-6 shadow-md sm:p-12"
     >
       <!-- PROFILE SECTION -->
       <div class="flex gap-6">
@@ -27,6 +27,7 @@
           :path="iconPath"
           @click="toggleFavorite"
           :class="isFavorite ? 'text-red-400' : 'text-slate-400'"
+          class="hidden sm:block"
         ></svg-icon>
       </div>
       <div>
@@ -76,7 +77,7 @@
 
       <!-- ABOUT SECTION -->
       <div>
-        <h3 class="text-left text-xl font-bold">About Me</h3>
+        <h3 class="text-left text-sm font-bold md:text-xl">About Me</h3>
         <p>{{ teacher.about }}</p>
       </div>
     </div>

@@ -1,9 +1,11 @@
 <template>
   <nav>
-    <div class="mb-24 mt-12 flex items-center justify-between font-bold">
+    <div
+      class="mb-24 mt-12 flex items-center justify-between text-4xl font-bold sm:text-base"
+    >
       <router-link class="transition-all ease-in hover:text-cyan-400" to="/"
         >🏡
-        <span>Home</span>
+        <span class="hidden sm:block">Home</span>
       </router-link>
       <!-- <router-link
         class="transition-all ease-in hover:text-cyan-400"
@@ -17,12 +19,12 @@
           <router-link
             class="transition-all ease-in hover:text-cyan-400"
             to="/login"
-            >😊 <span>Login</span></router-link
+            >😊 <span class="hidden sm:block">Login</span></router-link
           >
           <router-link
             class="transition-all ease-in hover:text-cyan-400"
             to="/signup"
-            >👋🏻 <span>Sign Up</span></router-link
+            >👋🏻 <span class="hidden sm:block">Sign Up</span></router-link
           >
         </div>
 
@@ -31,13 +33,13 @@
           <router-link
             class="transition-all ease-in hover:text-cyan-400"
             to="/user"
-            >👋🏻Hello, {{ user.username }}</router-link
-          >
+            >👋🏻 <span class="hidden sm:block"> Hello, {{ user.username }}</span>
+          </router-link>
           <button
             class="transition-all ease-in hover:text-cyan-400"
             @click="handleLogout"
           >
-            🥲 Logout
+            🥲 <span class="hidden sm:block">Logout</span>
           </button>
         </div>
 
@@ -47,7 +49,7 @@
           href="https://github.com/Neilly28/vue-speak"
           target="_blank"
           ><svg-icon type="mdi" :path="path" />
-          <span>GitHub</span>
+          <span class="hidden sm:block">GitHub</span>
         </a>
       </div>
     </div>
