@@ -83,7 +83,7 @@ router.beforeEach((to, from, next) => {
     (isAuthenticated && (to.name === "Login" || to.name === "SignUp")) ||
     (!isAuthenticated && requiresAuth)
   ) {
-    next(isAuthenticated ? "/" : "/login");
+    next(isAuthenticated ? "/" : "/signup");
   } else {
     next();
   }

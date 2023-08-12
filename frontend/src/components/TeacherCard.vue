@@ -30,7 +30,7 @@
         <div>
           <p class="text-left text-sm">{{ teacher.description }}</p>
         </div>
-        <div class="flex items-center justify-evenly gap-4">
+        <div class="flex w-full items-center justify-between gap-4">
           <div>
             <p class="text-left text-sm text-slate-400">Trial from</p>
             <h3 class="text-left text-xl font-bold">

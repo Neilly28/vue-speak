@@ -7,8 +7,9 @@
         class="flex items-center justify-center gap-2 transition-all ease-in hover:text-cyan-400"
         to="/"
       >
-        <Icon icon="ic:baseline-home" width="24" />
-        <span class="hidden sm:block">Home</span>
+        <!-- <Icon icon="ic:baseline-home" width="24" /> -->
+        <img src="/logo.png" class="h-10 sm:h-12" alt="" />
+        <!-- <span class="hidden sm:block">Home</span> -->
       </router-link>
       <!-- <router-link
         class="transition-all ease-in hover:text-cyan-400"
@@ -42,9 +43,7 @@
             to="/user"
           >
             <Icon icon="ic:baseline-account-circle" width="24" />
-            <span
-              class="flex hidden items-center justify-center gap-2 sm:block"
-            >
+            <span class="hidden items-center justify-center gap-2 sm:block">
               Hello, {{ user.username }}</span
             >
           </router-link>
@@ -53,7 +52,7 @@
             @click="handleLogout"
           >
             <Icon icon="ic:outline-person-remove-alt-1" width="24" />
-            <span class="flex hidden items-center justify-center gap-2 sm:block"
+            <span class="hidden items-center justify-center gap-2 sm:block"
               >Logout</span
             >
           </button>
