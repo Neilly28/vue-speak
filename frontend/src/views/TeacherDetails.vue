@@ -5,37 +5,45 @@
       class="group m-auto flex max-w-2xl cursor-pointer flex-col items-start justify-around gap-6 rounded-3xl bg-white p-6 shadow-md sm:p-12"
     >
       <!-- PROFILE SECTION -->
-      <div class="flex gap-6">
-        <div class="flex flex-col items-center justify-center gap-2">
-          <img class="w-24 rounded-full" :src="teacher.image" alt="" />
-          <p class="text-sm text-slate-400">Visited a day ago</p>
+      <div class="flex w-full justify-between gap-6">
+        <div class="flex items-center justify-center gap-6">
+          <div class="flex flex-col items-center justify-center gap-2">
+            <img class="w-24 rounded-full" :src="teacher.image" alt="" />
+            <p class="text-sm text-slate-400">Visited a day ago</p>
+          </div>
+          <div class="flex flex-col items-start justify-center text-left">
+            <h2 class="text-2xl font-bold">{{ teacher.name }}</h2>
+            <h2 class="text-sm text-slate-400">
+              {{
+                teacher.professional
+                  ? "Professional Teacher"
+                  : "Community Tutor"
+              }}
+            </h2>
+            <span
+              class="mt-2 rounded-3xl border-transparent bg-cyan-200 px-2 py-1 text-xs font-semibold text-cyan-800"
+              >{{ teacher.language }}</span
+            >
+          </div>
         </div>
-        <div class="flex flex-col items-start justify-center text-left">
-          <h2 class="text-2xl font-bold">{{ teacher.name }}</h2>
-          <h2 class="text-sm text-slate-400">
-            {{
-              teacher.professional ? "Professional Teacher" : "Community Tutor"
-            }}
-          </h2>
-          <span
-            class="mt-2 rounded-3xl border-transparent bg-cyan-200 px-2 py-1 text-xs font-semibold text-cyan-800"
-            >{{ teacher.language }}</span
-          >
+        <div>
+          <svg-icon
+            :type="iconType"
+            :path="iconPath"
+            @click="toggleFavorite"
+            :class="isFavorite ? 'text-red-400' : 'text-slate-400'"
+            class="h-8 w-8"
+          ></svg-icon>
         </div>
-        <svg-icon
-          :type="iconType"
-          :path="iconPath"
-          @click="toggleFavorite"
-          :class="isFavorite ? 'text-red-400' : 'text-slate-400'"
-          class="hidden sm:block"
-        ></svg-icon>
       </div>
       <div>
-        <p class="text-left text-sm">{{ teacher.description }}</p>
+        <p class="text-left text-base">{{ teacher.description }}</p>
       </div>
 
       <!-- CTA SECTION -->
-      <div class="flex flex-col items-center justify-evenly gap-8 sm:flex-row">
+      <div
+        class="flex w-full flex-col items-center justify-between gap-8 sm:flex-row"
+      >
         <div class="flex items-center justify-center gap-4">
           <div>
             <p class="text-left text-sm text-slate-400">Trial from</p>
