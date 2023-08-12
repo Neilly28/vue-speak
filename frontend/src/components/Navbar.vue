@@ -8,7 +8,12 @@
         to="/"
       >
         <!-- <Icon icon="ic:baseline-home" width="24" /> -->
-        <img src="/logo.png" class="h-10 sm:h-12" alt="" />
+        <img src="/logo.png" class="hidden h-10 sm:block sm:h-12" alt="logo" />
+        <img
+          src="/logomobile.png"
+          class="block h-10 sm:hidden"
+          alt="logomobile"
+        />
         <!-- <span class="hidden sm:block">Home</span> -->
       </router-link>
       <!-- <router-link
