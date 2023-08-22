@@ -1,5 +1,9 @@
 ![image](https://github.com/Neilly28/vue-speak/assets/104105542/2da29f7e-218c-4664-8a8c-4d3b61c2e997)
 
+# Live Website
+
+https://speakvue.netlify.app/
+
 # SpeakVue
 
 SpeakVue is a personal full-stack web application project that connects language learners with experienced teachers. Built using Vue.js, Node.js Express, and MongoDB.
